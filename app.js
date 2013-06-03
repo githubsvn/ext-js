@@ -39,7 +39,8 @@ Ext.application({
                 xtype: 'panel',
                 title: 'Child Panel 1',
                 height: 100,
-                width: '50%'
+                width: '50%',
+                collapsible: true
             },
             {
                 xtype: 'panel',
