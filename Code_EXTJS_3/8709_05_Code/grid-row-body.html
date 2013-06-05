@@ -2,26 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
 <head>
     <title></title>
-	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
-	
+	<link rel="stylesheet" type="text/css" href="../ext/resources/css/ext-all.css" />
+
 	<style type="text/css">
-	   .row-preview 
+	   .row-preview
 	   {
 	   	padding: 2px 2px 5px 15px;
 	   	border-top: dotted 1px #CCCCCC;
 	   }
 	</style>
 
-    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
 
-    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
 
     <script type="text/javascript">
 
 
         // Grid with remote sort
 
-        Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+        Ext.BLANK_IMAGE_URL = '../ext/resource/images/default/s.gif';
 
 var store = new Ext.data.JsonStore({
     url: 'grid-row-body.php',
@@ -35,8 +35,8 @@ var store = new Ext.data.JsonStore({
 });
 
 store.setDefaultSort('title', 'asc');
-        
-        
+
+
 
 Ext.onReady(function() {
 
@@ -49,7 +49,7 @@ Ext.onReady(function() {
                     width: 180,
                     dataIndex: 'title',
                     sortable: true
-                    
+
                 },
                 { header: "Category", width: 65, dataIndex: 'category', sortable: true },
                 { header: "Rating",
@@ -64,7 +64,7 @@ Ext.onReady(function() {
                     align: 'right',
                     renderer : function(v){
                         return v + ' min';
-                    } 
+                    }
                 },
                 { header: "Price",
                     width: 65,
@@ -86,7 +86,7 @@ Ext.onReady(function() {
             showPreview: true,
             getRowClass: function(record, rowIndex, p, store) {
                 if (this.showPreview) {
-                    p.body = '<div class="row-preview "><img src="img/star_yellow.png" align="left" style="padding-right:5px;"/><p>' + 
+                    p.body = '<div class="row-preview "><img src="img/star_yellow.png" align="left" style="padding-right:5px;"/><p>' +
                         record.data.actors + '</p></div>';
                     return 'x-grid3-row-expanded';
                 }
@@ -116,10 +116,10 @@ Ext.onReady(function() {
     store.load({ params: { start: 0, limit: 20} });
 
 });
-    
+
     </script>
 </head>
 <body style="padding: 20px">
-   
+
 </body>
 </html>

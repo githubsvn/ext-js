@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
 <head>
     <title></title>
-	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
-	
+	<link rel="stylesheet" type="text/css" href="../ext/resources/css/ext-all.css" />
+
 	<style type="text/css">
 	   .btn-save
         {
@@ -11,16 +11,16 @@
         }
 	</style>
 
-    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
 
-    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
 
     <script type="text/javascript">
 
 
         // Grid with cell editors
 
-        Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+        Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
 
 var customersStore = new Ext.data.JsonStore({
     url: 'grid-auto-save.php',
@@ -39,7 +39,7 @@ var citiesStore = new Ext.data.JsonStore({
     root: 'cities',
     fields: ['city_id', 'city']
 });
-        
+
 
 Ext.onReady(function() {
 
@@ -51,7 +51,7 @@ Ext.onReady(function() {
                 { id: 'name',
                     header: "Name",
                     width: 160,
-                    dataIndex: 'name', 
+                    dataIndex: 'name',
                     sortable: true,
                     editor: new Ext.form.TextField({
                         allowBlank: false
@@ -60,7 +60,7 @@ Ext.onReady(function() {
                 { id: 'address',
                     header: "Address",
                     width: 150,
-                    dataIndex: 'address', 
+                    dataIndex: 'address',
                     sortable: true,
                     editor: new Ext.form.TextField({
                         allowBlank: false
@@ -87,11 +87,11 @@ Ext.onReady(function() {
                         style: 'text-align:left'
                     })
                 },
-                { header: "City", 
-                    width: 95, 
-                    dataIndex: 'city', 
-                    sortable: true, 
-                    align: 'left', 
+                { header: "City",
+                    width: 95,
+                    dataIndex: 'city',
+                    sortable: true,
+                    align: 'left',
                     editor: new Ext.form.ComboBox({
                         store: citiesStore,
                         displayField: 'city',
@@ -99,7 +99,7 @@ Ext.onReady(function() {
                         editable: false,
                         mode: 'remote',
                         forceSelection: true,
-                        triggerAction: 'all',                    
+                        triggerAction: 'all',
                         selectOnFocus: true
                     })
                 }
@@ -115,10 +115,10 @@ Ext.onReady(function() {
     customersStore.load();
 
 });
-    
+
     </script>
 </head>
 <body style="padding: 20px">
-   
+
 </body>
 </html>

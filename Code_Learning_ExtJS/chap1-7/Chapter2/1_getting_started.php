@@ -1,9 +1,9 @@
 <html>
 <head>
     <title>Getting Started Example</title>
-    <link rel="stylesheet" type="text/css" href="../lib/extjs/resources/css/ext-all.css" />
- 	<script type="text/javascript" src="../lib/extjs/adapter/ext/ext-base.js"></script>
-    <script type="text/javascript" src="../lib/extjs/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../lib/extjs/resources/css/ext-all.css" />
+ 	<script type="text/javascript" src="../../lib/extjs/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../lib/extjs/ext-all.js"></script>
 	<style>
 		.milton-icon { background: url(images/milton-head-icon.png) no-repeat; }
 		.ext-el-mask { background-color:#FFF; }

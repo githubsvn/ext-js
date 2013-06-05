@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
 <head>
     <title></title>
-	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
-	
+	<link rel="stylesheet" type="text/css" href="../ext/resources/css/ext-all.css" />
+
 	<style type="text/css">
 	   .btn-save
         {
@@ -11,16 +11,16 @@
         }
 	</style>
 
-    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
 
-    <script type="text/javascript" src="../ext3/ext-all.js"></script>
+    <script type="text/javascript" src="../ext/ext-all.js"></script>
 
     <script type="text/javascript">
 
 
         // Grid with cell editors
 
-        Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+        Ext.BLANK_IMAGE_URL = '../ext/resources/images/default/s.gif';
 
 var customersStore = new Ext.data.JsonStore({
     url: 'grid-reconfigure.php',
@@ -32,7 +32,7 @@ var customersStore = new Ext.data.JsonStore({
 var moviesStore = new Ext.data.JsonStore({
     url: 'grid-reconfigure.php',
     root: 'movies',
-    baseParams: { xaction: 'movies' },    
+    baseParams: { xaction: 'movies' },
     fields: ['id', 'title', 'release_year', 'rating']
 });
 
@@ -86,10 +86,10 @@ Ext.onReady(function() {
     customersStore.load();
 
 });
-    
+
     </script>
 </head>
 <body style="padding: 20px">
-   
+
 </body>
 </html>

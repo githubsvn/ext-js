@@ -1,13 +1,13 @@
-﻿<?php 
+﻿<?php
 function OpenDbConnection() {
 
 
   $dbhost = 'localhost:3306';
   $dbuser = 'root';
-  $dbpass = 'root';
+  $dbpass = 'admin';
   $dbname = 'sakila';
-  
-  
+
+
 
   $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
