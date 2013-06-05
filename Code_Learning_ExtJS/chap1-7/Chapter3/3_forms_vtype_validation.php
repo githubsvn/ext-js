@@ -1,12 +1,12 @@
 <html>
 <head>
     <title>Forms Example</title>
-    <link rel="stylesheet" type="text/css" href="../lib/extjs/resources/css/ext-all.css" />
- 	<script type="text/javascript" src="../lib/extjs/adapter/ext/ext-base.js"></script>
-    <script type="text/javascript" src="../lib/extjs/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../lib/extjs/resources/css/ext-all.css" />
+ 	<script type="text/javascript" src="../../lib/extjs/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../lib/extjs/ext-all.js"></script>
 	<script>
 	Ext.onReady(function(){
-		new Ext.FormPanel({ 
+		new Ext.FormPanel({
 			url: 'movie-form-submit.php',
 			renderTo: document.body,
 			frame: true,

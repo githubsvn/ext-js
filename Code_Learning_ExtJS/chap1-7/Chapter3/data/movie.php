@@ -1,6 +1,6 @@
 <?php
-
-Include('../../cfg/db.php');
+Include('../../../cfg/db.php');
+$conn = OpenDbConnection();
 
 $sql = "SELECT * FROM movies WHERE id = ".$_REQUEST['id'];
 
@@ -18,5 +18,4 @@ If (!$rs = mysql_query($sql)) {
     }
 
 }
-
-?>
+CloseDbConnection($conn);
