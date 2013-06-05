@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Slider with custom tick marks
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+Ext.ux.SliderTip = Ext.extend(Ext.Tip, {
+    minWidth: 10,
+    offsets: [0, -10],
+    init: function(slider) {
+        slider.on('dragstart', this.onSlide, this);
+        slider.on('drag', this.onSlide, this);
+        slider.on('dragend', this.hide, this);
+        slider.on('destroy', this.destroy, this);
+    },
+
+    onSlide: function(slider) {
+        this.show();
+        this.body.update(this.getText(slider));
+        this.doAutoWidth();
+        this.el.alignTo(slider.thumb, 'b-t?', this.offsets);
+    },
+
+    getText: function(slider) {
+        return String(slider.getValue());
+    }
+});
+
+Ext.onReady(function() {
+
+    var slider1 = new Ext.Slider({
+        renderTo:'slider1',
+        minValue: 0,
+        maxValue: 100,
+        width:300,
+        increment: 10,
+        plugins: new Ext.ux.SliderTip()
+    });
+
+    var slider1 = new Ext.Slider({
+        renderTo: 'slider2',
+        minValue: 0,
+        maxValue: 100,
+        width: 300,
+        increment: 10,
+        plugins: new Ext.ux.SliderTip({
+            getText: function(slider) {
+                return String.format('<b>{0}% of available space</b>', slider.getValue());
+            }
+        })
+    });
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="slider1"></div>
+   <br />
+    <br />
+    <div id="slider2">
+    </div>
+</body>
+</html>

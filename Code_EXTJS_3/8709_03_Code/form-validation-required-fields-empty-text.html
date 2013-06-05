@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office"
+xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+    <style type="text/css">
+        .img-contact
+        {
+            vertical-align: middle;
+            margin: 0px 0px 0px 0px;
+            width:75px;
+            height:100px;
+        }
+.x-fieldset
+{
+    border-style: solid none none none;
+    border-width: 1px;
+    border-color: #B5B8C8;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    display: block;
+}
+.x-form-text-reqd
+{
+    background:#fff url(img/text-bg-reqd.gif) repeat-x 0 0;
+    
+}
+    </style>
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        // Loading form data from the server. 
+
+        Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+        // Required if showing validation messages
+        Ext.QuickTips.init();        
+
+Ext.onReady(function() {
+
+    var commentForm = new Ext.FormPanel({
+        frame: true,
+        title: 'Send your comments',
+        bodyStyle: 'padding:5px',
+        width: 550,
+        layout: 'form',
+        items: [
+		    {   xtype: 'textfield',
+		        fieldLabel: 'Name',
+		        name: 'name',
+		        anchor: '98%',
+		        allowBlank:false,
+		        emptyText:'Your name here'
+		    }, {
+		        xtype: 'textfield',
+		        fieldLabel: 'Email',
+		        name: 'email',
+		        anchor: '98%',
+		        vtype:'email'
+		    }, {
+		        xtype: 'textarea',
+		        fieldLabel: 'Comments',
+		        name: 'comments',
+		        anchor: '98%',
+		        height:200,
+		        allowBlank: false,
+		        emptyText: 'Enter your comments'
+		    }
+	    ],
+        buttons: [{
+            text: 'Send'
+        }, {
+            text: 'Cancel'
+		}]
+    });
+	
+commentForm.render(document.body);
+
+
+
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px;">
+</body>
+</html>

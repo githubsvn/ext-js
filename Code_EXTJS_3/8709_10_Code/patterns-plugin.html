@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office"
+xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+    
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        // Augmenting a class with a plugin.
+
+        Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+        // Required if showing validation messages
+        Ext.QuickTips.init();
+
+Ext.ns('Ext.ux', 'Ext.ux.plugins');
+
+Ext.ux.plugins.RequiredFieldGlyph = {
+    init: function(field) {
+
+        var thisXType = field.getXType();
+
+        // We only want to modify textfield fields.
+        if ('textarea' != thisXType && 'textfield' != thisXType) return;
+
+        onRender = field.onRender;
+
+        Ext.apply(field, {
+            allowBlank: false,
+            onRender: onRender.createSequence(function(ct, position) {
+
+                if ('textarea' == thisXType) {
+                    if (Ext.isGecko) {
+                        glyphX = this.el.dom.clientLeft + this.el.dom.offsetLeft + 2;
+                        glyphY = this.el.dom.clientTop + this.el.dom.offsetTop + 2;
+                    } else {
+                        glyphX = this.el.dom.clientLeft + this.el.dom.offsetLeft + 1;
+                        glyphY = this.el.dom.clientTop + this.el.dom.offsetTop + 1;
+                    }
+                } else {
+                    // For textfield.
+                    glyphX = this.el.dom.clientLeft + this.el.dom.offsetLeft + 1;
+                    glyphY = this.el.dom.clientTop + this.el.dom.offsetTop + 1;                            
+                }
+
+                theGlyph = '<img style="position: absolute; width: 5px; height: 5px; left:' + glyphX +
+                        'px; top:' + glyphY + 'px;" src="img/text-bg-reqd.png"/>';
+
+                Ext.DomHelper.insertAfter(this.el, theGlyph);
+
+            })
+        });
+    }
+}
+        
+
+Ext.onReady(function() {
+
+    var commentForm = new Ext.FormPanel({
+    frame: true,
+        renderTo:Ext.getBody(),
+        title: 'What is your name?',
+        bodyStyle: 'padding:5px',
+        width: 450,
+        layout: 'form',
+        //labelAlign:'top',
+        items: [
+		    { xtype: 'textfield',
+		        fieldLabel: 'Name',
+		        name: 'name',
+		        anchor: '98%',
+		        allowBlank:false,
+		        plugins: [Ext.ux.plugins.RequiredFieldGlyph]
+		        
+		    }, {
+		        xtype: 'textfield',
+		        fieldLabel: 'Email',
+		        name: 'email',
+		        anchor: '98%',
+		        vtype:'email'
+		    }
+	    ],
+        buttons: [{
+            text: 'Send'
+        }, {
+            text: 'Cancel'
+		}]
+    });
+});
+    
+    </script>
+</head>
+<body style="padding: 20px;">
+</body>
+</html>

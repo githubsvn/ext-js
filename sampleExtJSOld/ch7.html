@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>Getting Started Example</title>
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all.js"></script>
+        <script>
+
+            Ext.application({
+                name: 'HelloExt',
+                launch: function() {
+
+                    var viewport = new Ext.Viewport({
+                        layout: 'border',
+                        renderTo: Ext.getBody(),
+                        items: [{
+                                region: 'north',
+                                xtype: 'toolbar',
+                                items: [{
+                                        xtype: 'tbspacer'
+                                    },{
+                                        xtype: 'button',
+                                        text: 'Button',
+                                        handler: function(btn){
+                                            btn.disable();
+                                        }
+                                    },{
+                                        xtype: 'tbfill'
+                                    }]
+                            },{
+                                region: 'west',
+                                xtype: 'panel',
+                                split: true,
+                                collapsible: true,
+                                collapseMode: 'mini',
+                                title: 'Some Info',
+                                bodyStyle:'padding:5px;',
+                                width: 200,
+                                minSize: 200,
+                                html: 'West'
+
+                            },{
+                                region: 'center',
+                                xtype: 'tabpanel',
+                                activeTab: 0,
+                                items: [{
+                                        title: 'Movie Grid',
+                                        html: 'Center'
+                                    }]
+
+                            },{
+                                region: 'east',
+                                xtype: 'form',
+                                split: true,
+                                collapsible: true,
+                                collapseMode: 'mini',
+                                title: 'Some Info',
+                                bodyStyle:'padding:5px;',
+                                width: 300,
+                                minSize: 200,
+                                items: [{
+                                        xtype: 'textfield',
+                                        fieldLabel: 'Director',
+                                        name: 'director',
+                                        anchor: '100%',
+                                        vtype: 'name'
+                                    },{
+                                        xtype: 'datefield',
+                                        fieldLabel: 'Released',
+                                        name: 'released',
+                                        disabledDays: [1,2,3,4,5]
+                                    },{
+                                        xtype: 'radio',
+                                        fieldLabel: 'Filmed In',
+                                        name: 'filmed_in',
+                                        boxLabel: 'Color'
+                                    }
+                                ]
+                            },{
+                                region: 'south',
+                                xtype: 'panel',
+                                html: 'South'
+                            }]
+                    });
+
+
+                } //end launch
+            });
+        </script>
+    </head>
+    <body>
+        <!-- Nothing in the body -->
+    </body>
+</html>

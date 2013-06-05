@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+
+        Ext.onReady(function() {
+
+            var needsEscape = "ExtJS's String Class will escape this";
+            // The escaped string is "ExtJS\'s String Class will escape this".
+            var escaped = String.escape(needsEscape);
+
+            document.write(escaped + '<br/>');
+
+            var needsTrimming = " Needs trimming ";
+            // the trimmed string is "Needs trimming"
+            var trimmed = needsTrimming.trim();
+
+            document.write(trimmed + '<br/>');
+
+            var cls = 'color-class'
+            var color = 'Blue';
+            // formatted is '<div class="color-class">Color</div>'
+            var formatted = String.format('<span class="{0}">{1}</span>', cls, color);
+            document.write(formatted + '<br/>');
+
+            var sort = 'ASC';
+            sort = sort.toggle('ASC', 'DESC');
+
+            // instead of conditional logic:
+            //sort = (sort == 'ASC' ? 'DESC' : 'ASC');
+            document.write(sort + '<br/>');
+
+            var sample = "some text";
+            var converted = Ext.util.Format.uppercase(sample);
+            // converted is now "SOME TEXT".
+            document.write(converted + '<br/>');
+
+            sample = "SOME TEXT";
+            converted = Ext.util.Format.lowercase(sample);
+            // converted is now "some text".
+            document.write(converted + '<br/>');
+
+            sample = "some text";
+            converted = Ext.util.Format.capitalize(sample);
+            // converted is now "Some text".
+            document.write(converted + '<br/>');
+
+            var longText = "This text should be truncated, it's really long.";
+            var truncated = Ext.util.Format.ellipsis(longText, 20);
+            document.write(truncated + '<br/>');
+            // truncated is "This text should ...".
+
+            // Removing script tags
+            var withScript = 'Some text<script type="text/javascript">var color = "Blue";<\/script>';
+            var noScript = Ext.util.Format.stripScripts(withScript);
+            // noScript is "Some text".
+            document.write(noScript + '<br/>');
+
+            // Returning a portion of a string
+            var longText = "Only a part of this text is needed.";
+            var subString = Ext.util.Format.substr(longText, 0, 11);
+            // subString is "Only a part".
+            document.write(subString + '<br/>');
+
+            // Converting newline characters to the html tag <br/>
+            var multiLineText = "One line\nAnother line\nYet another line";
+            var html = Ext.util.Format.nl2br(multiLineText);
+            // html is 
+            // One line
+            // Another line
+            // Yet another line
+            document.write(html + '<br/>');
+
+            var money = 29.99;
+            var usCurrency = Ext.util.Format.usMoney(money);
+            // usCurrency is $29.99
+            document.write(usCurrency + '<br/>');
+
+            // Normalizing strings
+            var sample1 = '22';
+            var sample2 = '550';
+            var sample3 = '1500';
+
+            var normalized1 = String.leftPad(sample1, 4, '0');
+            // normalized1 is '0022'
+            var normalized2 = String.leftPad(sample2, 4, '0');
+            // normalized3 is '0550';
+            var normalized3 = String.leftPad(sample3, 4, '0');
+            // normalized2 is '1500'
+
+            document.write(normalized1 + '<br/>');
+            document.write(normalized2 + '<br/>');
+            document.write(normalized3 + '<br/>');
+
+        });
+
+
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>

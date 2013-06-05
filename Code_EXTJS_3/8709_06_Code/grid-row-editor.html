@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+	    .x-grid3 .x-window-ml{
+			padding-left: 0;	
+		} 
+		.x-grid3 .x-window-mr {
+			padding-right: 0;
+		} 
+		.x-grid3 .x-window-tl {
+			padding-left: 0;
+		} 
+		.x-grid3 .x-window-tr {
+			padding-right: 0;
+		} 
+		.x-grid3 .x-window-tc .x-window-header {
+			height: 3px;
+			padding:0;
+			overflow:hidden;
+		} 
+		.x-grid3 .x-window-mc {
+			border-width: 0;
+			background: #cdd9e8;
+		} 
+		.x-grid3 .x-window-bl {
+			padding-left: 0;
+		} 
+		.x-grid3 .x-window-br {
+			padding-right: 0;
+		}
+		.x-grid3 .x-panel-btns {
+			padding:0;
+		}
+		.x-grid3 .x-panel-btns td.x-toolbar-cell {
+			padding:3px 3px 0;
+		}
+		.x-box-inner {
+			zoom:1;
+		}
+	    .ext-ie .x-row-editor .x-form-text {
+		    margin:0 !important; 
+		}
+	   .x-row-editor-header {
+            height:2px;
+            overflow:hidden;
+            background: transparent url(img/row-editor-bg.gif) repeat-x 0 0;
+        }
+        .x-row-editor-footer {
+            height:2px;
+            overflow:hidden;
+            background: transparent url(img/row-editor-bg.gif) repeat-x 0 -2px;
+        }
+        .ext-ie .x-row-editor-footer {
+		    margin-top:-1px;
+		}
+
+        .x-row-editor-body {
+            overflow:hidden;
+            zoom:1;
+            background: #ebf2fb;
+            padding-top:2px;
+        }
+        .x-row-editor .x-btns {
+            position:absolute;
+            top:28px;
+            left:20px;
+            padding-left:5px;
+            background: transparent url(img/row-editor-btns.gif) no-repeat 0 0;
+        }
+        .x-row-editor .x-btns .x-plain-bwrap {
+            padding-right:5px;
+            background: transparent url(img/row-editor-btns.gif) no-repeat right -31px;
+        }
+        .x-row-editor .x-btns .x-plain-body {
+            background: transparent url(img/row-editor-btns.gif) repeat-x 0 -62px;
+            height:31px;
+        }
+        .x-row-editor .x-btns .x-table-layout-cell {
+            padding:3px;
+        }
+        .icon-add 
+        {
+        	background:url(img/add2.png) 0 no-repeat !important;
+        }
+        .icon-del 
+        {
+        	background:url(img/delete2.png) 0 no-repeat !important;
+        }
+
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+    
+<script type="text/javascript" src="RowEditor.js"></script>
+
+<script type="text/javascript">
+
+
+// Grid with row editor
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+var custFields = [{
+        name:'ID',
+        type: 'int'
+    },{
+        name: 'first_name',
+        type: 'string'
+    }, {
+        name: 'last_name',
+        type: 'string'
+    }, {
+        name:'phone',
+        type:'string'
+    }, {
+        name: 'email',
+        type: 'string'
+}]
+
+var Customer = Ext.data.Record.create(custFields);
+
+var customersStore = new Ext.data.JsonStore({
+    url: 'grid-row-editor.php',
+    root: 'customers',
+    fields: custFields,
+    idProperty: 'ID',
+    writer:new Ext.data.JsonWriter()
+});
+
+var citiesStore = new Ext.data.JsonStore({
+    url: 'grid-row-editor.php',
+    baseParams: { xaction: 'cities' },
+    root: 'cities',
+    fields: ['city_id', 'city']
+});
+
+var editor = new Ext.ux.RowEditor({
+    saveText: 'Update'
+});
+
+Ext.onReady(function() {
+
+    var grid = new Ext.grid.EditorGridPanel({
+        title: 'Customers',
+        store: customersStore,
+        plugins: [editor],
+        sm: new Ext.grid.RowSelectionModel({ singleSelect: true }),
+        tbar: [{
+            iconCls: 'icon-add',
+            text: 'New',
+            handler: function() {
+                var cust = new Customer({
+                    Id:'0',
+                    first_name: '[First name]',
+                    last_name: '[Last Name]',
+                    phone:'[Phone Number]',
+                    email: 'user@domain.com'
+                });
+                editor.stopEditing();
+                customersStore.insert(0, cust);
+                grid.getView().refresh();
+                grid.getSelectionModel().selectRow(0);
+                editor.startEditing(0);
+            }
+        },'-', {
+            ref: '../removeBtn',
+            iconCls: 'icon-del',
+            text: 'Delete',
+            disabled: true,
+            handler: function() {
+                editor.stopEditing();
+                var s = grid.getSelectionModel().getSelections();
+                for (var i = 0, r; r = s[i]; i++) {
+                    customersStore.remove(r);
+                }
+            }
+        }],
+        columns: [
+        { header: "ID", width: 30, dataIndex: 'ID', sortable: true, hidden: true },
+        { id: 'fname',
+            header: "First Name",
+            width: 180,
+            dataIndex: 'first_name',
+            sortable: true,
+            editor: new Ext.form.TextField({
+                allowBlank: false
+            })
+        },
+        { id: 'lname',
+            header: "Last Name",
+            width: 160,
+            dataIndex: 'last_name',
+            sortable: true,
+            editor: new Ext.form.TextField({
+                allowBlank: false
+            })
+        },
+        { header: "Phone",
+            width: 135,
+            dataIndex: 'phone',
+            sortable: true,
+            align: 'left',
+            editor: new Ext.form.TextField({
+                allowBlank: false
+            })
+        },
+        { id:'email',
+            header: "Email",
+            width: 95,
+            dataIndex: 'email',
+            sortable: true,
+            align: 'left',
+            editor: new Ext.form.TextField({
+                allowBlank: false,
+                vtype: 'email'
+            })
+        }
+    ],
+        autoExpandColumn:'email',
+        renderTo: Ext.getBody(),
+        width: 750,
+        height: 500,
+        loadMask: true
+    });
+
+    grid.getSelectionModel().on('selectionchange', function(sm) {
+        grid.removeBtn.setDisabled(sm.getCount() < 1);
+    });
+
+    customersStore.load();
+
+});
+    
+</script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

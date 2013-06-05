@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+.report
+{
+    background:url(img/pie-chart.png) 0 no-repeat !important;
+}
+.dataset
+{
+    background:url(img/table.png) 0 no-repeat !important;
+}	
+.datasource
+{
+    background:url(img/data.png) 0 no-repeat !important;
+}	        
+#leftTree, #rightTree {
+    float:left;
+    margin:20px;
+}
+
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Dragging and dropping with two trees.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+Ext.onReady(function() {
+    
+    var leftTree = new Ext.tree.TreePanel({
+        el: 'leftTree',
+        frame:true,
+        width: 250,
+        height:400,
+        useArrows: true,
+        autoScroll: true,
+        animate: true,
+        enableDD: true,
+        dropConfig: {appendOnly:true},
+        containerScroll: true,
+        border: false,
+        loader: {
+            dataUrl: 'tree-drag-drop-trees.php',
+            baseParams: { tree: 'leftTree' }
+        },
+        root: {
+            nodeType: 'async',
+            text: 'My Reporting Project',
+            draggable: false,
+            id: 'project'
+        }
+    });
+
+    var rightTree = new Ext.tree.TreePanel({
+        el: 'rightTree',
+        frame: true,
+        width: 250,
+        height: 400,
+        useArrows: true,
+        autoScroll: true,
+        animate: true,
+        enableDD: true,
+        dropConfig: {appendOnly:true},
+        containerScroll: true,
+        border: false,
+        loader:{
+            dataUrl: 'tree-drag-drop-trees.php',
+            baseParams:{tree:'rightTree'}
+        },
+        root: {
+            text: 'Selected Items',
+            draggable: false,
+            id: 'selected-items'
+        }
+    });
+
+    leftTree.render();
+    rightTree.render();
+
+    leftTree.getRootNode().expand(true);
+    rightTree.getRootNode().expand(false);
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="leftTree"></div>
+   <div id="rightTree"></div>
+</body>
+</html>

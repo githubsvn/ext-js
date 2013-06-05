@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+	    .app-img
+	    {
+	    	vertical-align: middle;
+	    	margin: 0px 20px 10px 0px;
+	    }	
+	    .app-msg
+	    {
+	    	font-size:large;
+	    }
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>    
+
+    <script type="text/javascript">
+
+
+        // Grid and form in a master-details relationship.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+// Required if showing validation messages
+Ext.QuickTips.init();
+
+var moviesStore = new Ext.data.JsonStore({
+    url: 'grid-form-master-details.php',
+    root: 'movies',
+    totalProperty: 'count',
+    fields: [{ name: 'film_id' }, { name: 'title' }, { name: 'rating' },
+    { name: 'length', type: 'int' },
+    { name: 'price', type: 'float'}]
+});
+
+var moviesGrid = new Ext.grid.GridPanel({
+    store: moviesStore,
+    columns: [{ header: "ID", width: 30, dataIndex: 'film_id', sortable: true, hidden: true },
+            { id: 'title-col',
+                header: "Title",
+                width: 180,
+                dataIndex: 'title',
+                sortable: true
+
+            },
+            { header: "Rating",
+                dataIndex: 'rating',
+                sortable: true
+            },
+            { header: "Length",
+                dataIndex: 'length',
+                sortable: true,
+                align: 'right',
+                renderer: function(v) {
+                    return v + ' min';
+                }
+            },
+            { header: "Price",
+                dataIndex: 'price',
+                sortable: true,
+                align: 'right',
+                renderer: Ext.util.Format.usMoney
+            }
+        ],
+    autoExpandColumn: 'title-col',
+    width: 330,
+    height: 300,
+    loadMask: true,
+    columnLines: true,
+    viewConfig: {
+        forceFit: true
+    }
+});
+
+var fieldset = { 
+    columnWidth: 0.5,
+    xtype: 'fieldset',
+    labelWidth: 90,
+    title: 'Movie details',
+    defaults: { width: 230 }, 
+    defaultType: 'textfield',
+    autoHeight: true,
+    bodyStyle: Ext.isIE ? 'padding:0 0 5px 15px;' : 'padding:10px 15px;',
+    items: [{
+        id: 'title',
+        fieldLabel: 'Title',
+        name: 'title'
+    }, {
+        id: 'rating',
+        fieldLabel: 'Rating',
+        name: 'rating',
+        width: 55,
+        style: 'text-align:right;'
+    }, {
+        id:'length',
+        xtype:'numberfield',
+        fieldLabel: 'Length (min)',
+        name: 'lenght',
+        width: 55,
+        style: 'text-align:right;'
+    }, {
+        id: 'price',
+        xtype: 'numberfield',
+        fieldLabel: 'Price (USD)',
+        name: 'price',
+        width: 55,
+        style:'text-align:right;'
+    }]
+}
+
+Ext.onReady(function() {
+
+    var moviesForm = new Ext.FormPanel({
+        id: 'movies-form',
+        renderTo: Ext.getBody(),
+        frame: true,
+        labelAlign: 'left',
+        title: 'Movies List',
+        bodyStyle: 'padding:5px',
+        width: 750,
+        layout: 'column',
+        items: [{ columnWidth: 0.5,
+            items: [moviesGrid]
+        }, fieldset]
+    });
+
+    moviesGrid.getSelectionModel().on('rowselect', function(sm, rowIndex, record) {
+
+        moviesForm.getForm().loadRecord(record);
+        
+        // You can also address each field individually:
+        //        Ext.getCmp('title').setValue(record.data.title);
+        //        Ext.getCmp('rating').setValue(record.data.rating);
+        //        Ext.getCmp('length').setValue(record.data.length);
+        //        Ext.getCmp('price').setValue(record.data.price);
+
+    });
+
+    moviesStore.on('load', function(store, records, options) {
+        if (records && records.length > 0) {
+            moviesGrid.getSelectionModel().selectFirstRow();
+        }
+    });
+
+    moviesStore.load();
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="movies-div" ></div>
+</body>
+</html>

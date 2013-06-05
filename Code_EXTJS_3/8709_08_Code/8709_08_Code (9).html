@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+        #tbar 
+        {
+            width:150px;	
+        }
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script src="js/cars.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+
+// A menu with items that are scrolled.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+Ext.onReady(function() {
+
+    Ext.QuickTips.init();
+
+    var clickHandler = function(action) {
+        alert('Menu clicked: "' + action + '"');
+    };
+
+    var scrollingMenu = new Ext.menu.Menu();
+    
+    for (var i = 0; i < 55; ++i) {
+        scrollingMenu.add({
+            text: 'Item ' + (i + 1),
+            handler: clickHandler.createCallback('Item ' + (i + 1))
+        });
+    }
+    
+    var tb = new Ext.Toolbar({
+        renderTo: 'tbar',
+        items: [{
+            text: 'Menu Items',
+            menu: scrollingMenu
+        }]
+    });
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="tbar"></div>
+</body>
+</html>

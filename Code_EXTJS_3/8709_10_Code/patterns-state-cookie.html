@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+       
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Preserving state with cookies.
+
+        Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+        var TIME_OFFSET = 1000 * 60 * 60 * 24 * 30; // 30 days offset.
+
+
+Ext.ns('Example');
+
+
+Example.StatefulTabPanel = Ext.extend(Ext.TabPanel, {
+    stateEvents: ['tabchange'],
+    getState: function() { return { tab: this.getActiveTab().id} },
+    applyState: function(state) { this.setActiveTab(state.tab); }
+});
+
+Ext.onReady(function() {
+
+var cp = new Ext.state.CookieProvider({
+    path: "/",
+    expires: new Date(new Date().getTime() + TIME_OFFSET)
+});
+Ext.state.Manager.setProvider(cp);
+
+cp.on('statechange', function(provider, key, value) {
+    Ext.Msg.alert('State Change', 'key: ' + key + ', value: ' + value);
+});
+
+var tab = new Example.StatefulTabPanel({
+        stateful: true,
+        stateId:'myTabPanel',
+        renderTo: document.body,
+        activeTab: 0,
+        width: 500,
+        height: 250,
+        plain: true,
+        defaults: { autoScroll: true },
+        items: [{
+        title: 'First Tab',
+            bodyStyle:'padding:5px',
+            html: 'Switch tabs and refresh'
+        }, {
+            title: 'Second Tab',
+            bodyStyle: 'padding:5px',
+            html:'Remember me?'
+        }, {
+            title: 'Third Tab',
+            bodyStyle: 'padding:5px',
+            html:'I remember'
+        }]
+    });
+
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

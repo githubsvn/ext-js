@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+	   .row-preview 
+	   {
+	   	padding: 2px 2px 5px 15px;
+	   	border-top: dotted 1px #CCCCCC;
+	   }
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+    
+    <script type="text/javascript" src="RowExpander.js"></script>
+
+    <script type="text/javascript">
+
+
+        // Grid with checkbox selection and row expander
+
+        Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+var store = new Ext.data.JsonStore({
+    url: 'grid-checkbox-selection.php',
+    root: 'movies',
+    idProperty: 'id',
+    totalProperty: 'count',
+    fields: ['id', 'title', 'category', 'rating', 'actors',
+    { name: 'length', type: 'int' },
+    { name: 'price', type: 'float' }],
+    remoteSort: true
+});
+
+store.setDefaultSort('title', 'asc');
+
+var checkboxSel = new Ext.grid.CheckboxSelectionModel();
+
+var rowExpander = new Ext.grid.RowExpander({
+    tpl: new Ext.Template(
+        '<div class="row-preview "><img src="img/star_yellow.png" align="left" style="padding-right:5px;"/><p>{actors}</p></div>'
+    )
+});
+
+Ext.onReady(function() {
+
+    var grid = new Ext.grid.GridPanel({
+        title: 'Movies',
+        store: store,
+        sm:checkboxSel,
+        columns: [
+                checkboxSel,rowExpander,
+                {header: "ID", width: 30, dataIndex: 'fid', sortable: true, hidden:true },
+                { id: 'title-col',
+                    header: "Title",
+                    width: 180,
+                    dataIndex: 'title',
+                    sortable: true
+                    
+                },
+                { header: "Category", width: 85, dataIndex: 'category', sortable: true },
+                { header: "Rating",
+                    width: 65,
+                    dataIndex: 'rating',
+                    sortable: true
+                },
+                { header: "Length",
+                    width: 65,
+                    dataIndex: 'length',
+                    sortable: true,
+                    align: 'right',
+                    renderer : function(v){
+                        return v + ' min';
+                    } 
+                },
+                { header: "Price",
+                    width: 65,
+                    dataIndex: 'price',
+                    sortable: true,
+                    align: 'right',
+                    renderer: Ext.util.Format.usMoney
+                }
+            ],
+        autoExpandColumn: 'title-col',
+        renderTo: Ext.getBody(),
+        width: 600,
+        height: 400,
+        loadMask: true,
+        columnLines: true,
+        plugins: rowExpander,
+        bbar: new Ext.PagingToolbar({
+            pageSize: 20,
+            store: store,
+            displayInfo: true,
+            displayMsg: 'Displaying movies {0} - {1} of {2}',
+            emptyMsg: "No movies found"
+        })
+    });
+
+    store.load({ params: { start: 0, limit: 20} });
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

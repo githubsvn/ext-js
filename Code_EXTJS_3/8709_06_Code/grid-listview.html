@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all.js"></script>
+    
+    <script type="text/javascript">
+
+
+// Using the new ListView component
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+var store = new Ext.data.JsonStore({
+    url: 'grid-listview.php',
+    root: 'movies',
+    idProperty: 'id',
+    totalProperty: 'count',
+    fields: ['id', 'title', 'category', 'rating',
+    { name: 'length', type: 'int' },
+    { name: 'price', type: 'float' }]
+});
+
+store.setDefaultSort('title', 'asc');
+
+
+Ext.onReady(function() {
+
+    var moviesListView = new Ext.ListView({
+        store: store,
+        multiSelect: false,
+        emptyText: 'No movies to display',
+        reserveScrollOffset: true,
+        loadingText: 'Loading movies...',
+        columns: [{
+            header: 'Title',
+            width: .4,
+            dataIndex: 'title'
+        }, {
+            header: 'Category',
+            width: .15,
+            dataIndex: 'category'
+        }, {
+            header: 'Rating',
+            dataIndex: 'rating',
+            width: .15,
+            align: 'right'
+        }, {
+            header: 'Length',
+            dataIndex: 'length',
+            width: .15,
+            align: 'right',
+            tpl: '{length} min'
+
+        }, {
+            header: 'Price',
+            dataIndex: 'price',
+            width: .15,
+            align: 'right',
+            tpl: '{price:usMoney}'
+
+}]
+        });
+
+        var moviesPanel = new Ext.Panel({
+            id: 'movies-panel',
+            renderTo: Ext.getBody(),
+            width: 525,
+            height: 300,
+            layout: 'fit',
+            title: 'Movies List',
+            items: moviesListView
+        });
+
+        store.load();
+
+    });
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

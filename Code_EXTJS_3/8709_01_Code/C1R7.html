@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+
+            // Effortless range checking for numbers
+            var number1 = 30;
+            var number2 = 75;
+            var constrained = number1.constrain(25, 50);
+            // constrained is 30 because number1 is 
+            // within the specified range
+            document.write(constrained + '<br/>');
+            constrained = number2.constrain(25, 50);
+            // constrained is 50 because number2 is
+            // greater than the max. value in the range
+            document.write(constrained + '<br/>');
+
+        });
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>

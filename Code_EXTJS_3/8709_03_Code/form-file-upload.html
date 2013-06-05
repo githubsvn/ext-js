@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office"
+xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext3/resources/css/ext-all.css" />
+    <style type="text/css">
+
+    </style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+    // Uploading a file
+
+    Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+
+var picBox = {
+    columnWidth: '100 px',
+    bodyStyle: 'padding:10px',
+    items: [
+        { xtype: 'box',
+            autoEl: { tag: 'div',
+            html: '<img id="pic" src="' + Ext.BLANK_IMAGE_URL + '" class="img-contact" />'
+            }
+        }
+    ]
+}
+
+var picFiles = {
+    columnWidth: .65,
+    layout: 'form',
+    labelAlign:'top',
+    items: [
+        {
+	        xtype: 'textfield',
+	        fieldLabel: 'Current',
+	        labelSeparator: '',
+	        name: 'currPic',
+	        id:'currPic',
+	        readOnly: true,
+	        disabled:true,
+	        anchor:'100%'
+	    },
+	    {
+	        xtype: 'textfield',
+	        fieldLabel: 'New (JPG or PNG only)',
+	        labelSeparator: '',
+	        name: 'newPic',
+	        id:'newPic',
+	        style:'width: 300px',
+	        inputType: 'file',
+	        allowBlank: false
+	    }
+    ]
+}
+
+function validateFileExtension(fileName) {
+
+    var exp = /^.*\.(jpg|JPG|png|PNG)$/;
+    return exp.test(fileName);
+
+}
+
+Ext.onReady(function() {
+
+    var pictUploadForm = new Ext.FormPanel({
+        frame: true,
+        title: 'Change Picture',
+        bodyStyle: 'padding:5px',
+        width: 420,
+        layout: 'column',
+        url: 'contact-picture.aspx',
+        method: 'POST',
+        fileUpload: true,
+        items: [picBox, picFiles],
+        buttons: [{
+            text: 'Upload Picture',
+            handler: function() {
+
+            var theForm = pictUploadForm.getForm();
+
+                if (!theForm.isValid()) {
+                    Ext.MessageBox.alert('Change Picture', 'Please select a picture');
+                    return;
+                }
+                if (!validateFileExtension(Ext.getDom('newPic').value)) {
+                    Ext.MessageBox.alert('Change Picture', 'Only JPG or PNG, please.');
+                    return;
+                }
+                theForm.submit({
+                    params: { act: 'setPicture', id: 'contact1' },
+                    waitMsg: 'Uploading picture'
+                })
+            }
+        }, {
+            text: 'Cancel'
+        }]
+    });
+
+pictUploadForm.on({
+    actioncomplete: function(form, action) {
+        if (action.type == 'load') {
+            var pic = action.result.data;
+            Ext.getDom('pic').src = pic.file;
+            Ext.getCmp('currPic').setValue(pic.file);
+        }
+        if (action.type == 'submit') {
+            var pic = action.result.data;
+            Ext.getDom('pic').src = pic.file;
+            Ext.getCmp('currPic').setValue(pic.file);
+            Ext.getDom('newPic').value = '';
+        }
+    }
+});
+
+    pictUploadForm.render(document.body);
+
+    Ext.getDom('newPic').size = 30;
+
+    pictUploadForm.getForm().load({ params: { act: 'getPicture', id: 'contact1' }, waitMsg: 'Loading' });
+
+});
+
+    </script>
+
+</head>
+<body style="padding: 20px">
+</body>
+</html>

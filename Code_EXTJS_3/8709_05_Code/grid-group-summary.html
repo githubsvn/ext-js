@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext/resources/css/ext-all.css" />
+
+	<link rel="stylesheet" type="text/css" href="summary.css" />
+
+	<style type="text/css">
+
+	</style>
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript" src="GroupSummary.js"></script>
+
+
+    <script type="text/javascript">
+
+
+        // Grid with grouping and live summary data
+
+        Ext.BLANK_IMAGE_URL = '../ext/resources/images/default/s.gif';
+
+
+var reader = new Ext.data.JsonReader({
+    idProperty: 'fid',
+    root: 'movies',
+    fields: ['id', 'title', 'category', 'rating',
+    { name: 'length', type: 'int' },
+    { name: 'price', type: 'float'}]
+});
+
+var groupingStore = new Ext.data.GroupingStore({
+    url: 'grid-group-summary.php',
+    reader: reader,
+    sortInfo: { field: 'title', direction: "desc" },
+    groupField: 'category'
+});
+
+var summary = new Ext.grid.GroupSummary();
+
+
+Ext.onReady(function() {
+
+    var grid = new Ext.grid.GridPanel({
+        title: 'Movies By Category',
+        store: groupingStore,
+        columns: [
+                { header: "ID", width: 30, dataIndex: 'fid', sortable: true, hidden:true },
+                { id: 'title-col',
+                    header: "Title",
+                    width: 180,
+                    dataIndex: 'title',
+                    sortable: true,
+                    summaryType: 'count',
+                    hideable: false,
+                    summaryRenderer: function(v, params, data){
+                        return ((v === 0 || v > 1) ? + v +' Movies' : '1 Movie');
+                    }
+                },
+                { header: "Category", width: 65, dataIndex: 'category', sortable: true, groupName:'Category' },
+                { header: "Rating",
+                    width: 65,
+                    dataIndex: 'rating',
+                    sortable: true,
+                    summaryRenderer: function(v, params, data) {
+                        return 'Averages:';
+                    },
+                    groupName:'Rating'
+                },
+                { header: "Length",
+                    width: 65,
+                    dataIndex: 'length',
+                    sortable: true,
+                    align: 'right',
+                    renderer : function(v){
+                        return v + ' min';
+                    },
+                    summaryType: 'average',
+                    summaryRenderer: function(v, params, data) {
+                        return Ext.util.Format.number(v,'0') + ' min';
+                    },
+                    groupName:'Length'
+                },
+                { header: "Price",
+                    width: 65,
+                    dataIndex: 'price',
+                    sortable: true,
+                    align: 'right',
+                    summaryType: 'average',
+                    renderer: Ext.util.Format.usMoney,
+                    summaryRenderer: function(v, params, data) {
+                        return Ext.util.Format.usMoney(v);
+                    },
+                    groupName:'Priece'
+                }
+            ],
+        autoExpandColumn: 'title-col',
+        renderTo: Ext.getBody(),
+        width: 600,
+        height: 500,
+        loadMask: true,
+        view: new Ext.grid.GroupingView({
+            forceFit:true,
+            showGroupName: true,
+            enableNoGroups:false, // Required
+            hideGroupedColumn: true
+        }),
+        plugins:summary
+    });
+
+    groupingStore.load();
+
+});
+
+    </script>
+</head>
+<body style="padding: 20px">
+
+</body>
+</html>

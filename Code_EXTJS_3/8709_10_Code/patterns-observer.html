@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+       
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Inter-component communications using the observer pattern via relayEvents().
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+
+Ext.ns('Dashboard');
+
+
+function WriteToConsole(console, msg) {
+    var prevValue = console.getValue();
+    if (null == prevValue) prevValue = '';
+    console.setValue(prevValue + msg);
+}
+
+Dashboard.Portlet = Ext.extend(Ext.Panel, {
+    anchor: '100%',
+    frame: true,
+    collapsible: true,
+    draggable: true,
+    height: 150,    // Default height and widths.
+    width: 200,
+    tools: [{
+        id: 'gear',
+        handler: function(e, toolEl, panel) {
+            panel.fireEvent('gearClick', panel);
+        }
+    }, {
+        id: 'help',
+        handler: function(e, toolEl, panel) {
+            panel.fireEvent('helpClick', panel);
+        }
+    }],
+    initComponent: function() {
+        Dashboard.Portlet.superclass.initComponent.apply(this, arguments);
+        this.addEvents('gearClick', 'helpClick');
+    }
+});
+
+Ext.onReady(function() {
+
+    var portlet1 = new Dashboard.Portlet({
+        title: 'Porlet 1',
+        renderTo: 'p1',
+        id: 'portlet1'
+    })
+
+    var portlet2 = new Dashboard.Portlet({
+        title: 'Porlet 2',
+        renderTo: 'p2',
+        id: 'portlet2'
+    })
+
+    var console = new Ext.form.TextArea({
+        renderTo: 'console',
+        width: 350,
+        grow: true,
+        growMin: 200,
+        growMax: 300
+    })
+
+    console.relayEvents(portlet1, ['gearClick', 'helpClick']);
+    console.relayEvents(portlet2, ['gearClick', 'helpClick']);
+
+    console.on('gearClick', function(panel) {
+        var msg = 'Gear clicked. Portlet Id = ' + panel.id + '\n';
+        WriteToConsole(console,msg);        
+    });
+
+    console.on('helpClick', function(panel) {
+        var msg = 'Help clicked. Portlet Id = ' + panel.id + '\n';
+        WriteToConsole(console,msg);
+    });
+
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="p1"></div>
+   <br />
+    <br />
+    <div id="p2"></div>
+    <br />
+    <br />
+    <div id="console">
+    </div>
+</body>
+</html>

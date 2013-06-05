@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>Hello Ext</title>
+
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-debug.js"></script>
+        <script>
+
+            Ext.application({
+                name: 'HelloExt',
+                launch: function() {
+
+                    Ext.create('Ext.container.Viewport', {
+                        layout: 'border',
+                        items: [{
+                                region: 'north',
+                                xtype: 'toolbar',
+                                items: [{
+                                        xtype: 'tbspacer'
+                                    },{
+                                        xtype: 'button',
+                                        text: 'Button',
+                                        handler: function(btn){
+                                            btn.disable();
+                                        }
+                                    },{
+                                        xtype: 'tbfill'
+                                    }]
+                            }, {
+                                title: 'West',
+                                region: 'west',
+                                margins: '0 5 0 5',
+                                flex: .3,
+                                collapsible: true,
+                                split: true,
+                                titleCollapse: true
+                            }, {
+                                title: 'Center',
+                                region: 'center'
+                            }, {
+                                title: 'East',
+                                region: 'east',
+                                margins: '0 5 0 5',
+                                width: 200,
+                                collapsible: true,
+                                collapsed: true
+                            }, {
+                                title: 'South',
+                                region: 'south',
+                                margins: '0 5 5 5',
+                                flex: .1,
+                                split: true
+                            }]
+                    });
+
+
+
+
+
+
+                } //end launch
+            });
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

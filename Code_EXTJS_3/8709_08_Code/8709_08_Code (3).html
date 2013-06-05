@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+.custom-status-text-panel 
+{
+    border-top:1px solid #99BBE8;
+    border-right:1px solid #fff;
+    border-bottom:1px solid #fff;
+    border-left:1px solid #99BBE8;
+    padding:1px 2px 2px 1px;
+}
+	</style>
+	
+	<script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script src="js/cars.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+
+        // The toolbar used as status bar, with custom look for its text items.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+Ext.onReady(function() {
+
+    var pnl = new Ext.Panel({
+        title: 'Status bar sunken text items',
+        renderTo: 'pnl1',
+        width: 400,
+        height: 200,
+        bodyStyle: 'padding:10px;',
+        bbar: {
+            id: 'sBar',
+            items: [{ id: 'cachedCount', xtype:'tbtext',text: 'Cached: 15' }, ' ',
+                { id: 'uploadedCount', xtype: 'tbtext', text: 'Uploaded: 7' }, ' ',
+                { id: 'invalidCount', xtype: 'tbtext', text: 'Invalid: 2' }
+            ]
+        },
+        listeners: {
+            'afterrender': {
+                fn: function() {
+                    Ext.fly(Ext.getCmp('cachedCount').getEl()).parent().addClass('custom-status-text-panel');
+                    Ext.fly(Ext.getCmp('uploadedCount').getEl()).parent().addClass('custom-status-text-panel');
+                    Ext.fly(Ext.getCmp('invalidCount').getEl()).parent().addClass('custom-status-text-panel');
+                }
+            }
+        }
+    });
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+    
+   <div id="pnl1"></div>
+
+
+</body>
+</html>

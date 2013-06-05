@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+
+            // Extending Javascript objects the ExtJS way
+
+            Ext.applyIf(Array.prototype, {
+                copyTo: function(dest, startIndex) {
+                    l = this.length;
+                    for (var i = 0; i < l; i++) {
+                        dest[startIndex + i] = this[i];
+                    }
+                }
+            })
+
+            var source = new Array();
+            var destination = new Array();
+            
+            source[0] = '1';
+            source[1] = '2';
+            source[2] = '3';
+
+            destination[0] = '4';
+            destination[1] = '5';
+            destination[2] = '6';
+            destination[3] = '7';
+            destination[4] = '8';
+            destination[5] = '9';
+
+            var serialized = destination.toString();
+            // serialized is "4,5,6,7,8,9"
+            document.write(serialized + '<br/>');
+            // Use the newly added function
+            source.copyTo(destination, 2);
+            
+            serialized = destination.toString();
+            // serialized is "4,5,1,2,3,9"
+            document.write(serialized + '<br/>');  
+
+        });
+    
+    </script>
+
+</head>
+<body>
+</body>
+</html>

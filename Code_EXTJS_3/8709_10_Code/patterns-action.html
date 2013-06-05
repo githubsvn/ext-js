@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+<style type="text/css">
+   .icon-data 
+    {
+	     background:url(img/data.png) 0 no-repeat !important;
+    }
+    .icon-filter 
+    {
+	     background:url(img/funnel.png) 0 no-repeat !important;
+    }
+</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Using actions to share handlers. This can be seen as a variant of the command pattern.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+Ext.onReady(function() {
+
+    var action = new Ext.Action({
+        iconCls: 'icon-data',
+        text: 'Import',
+        handler: function() {
+            Ext.Msg.alert('Action executed', 'This is the Import action executing...');
+        }
+    });
+
+    var panel = new Ext.Panel({
+        title: 'What you can do with Actions',
+        width: 450,
+        height: 200,
+        bodyStyle: 'padding:10px;',    
+
+        tbar: [
+            action, {                  
+                text: 'Action Menu',
+                menu: [action]         
+            }
+        ],
+
+        items: [
+           new Ext.Button(action)  
+        ],
+
+        renderTo: Ext.getBody()
+    });
+
+    var tb = panel.getTopToolbar();
+    // Buttons added to the toolbar of the Panel above
+    // to test/demo doing group operations with an action
+    tb.add('-', {
+        text: 'Disable action',
+        handler: function() {
+            action.setDisabled(!action.isDisabled());
+            this.setText(action.isDisabled() ? 'Enable action' : 'Disable action');
+        }
+    }, {
+        text: 'Change action text',
+        handler: function() {
+            Ext.Msg.prompt('Enter Text', 'Enter new text for the action:', function(btn, text) {
+                if (btn == 'ok' && text) {
+                    action.setText(text);
+                    action.setHandler(function() {
+                    Ext.Msg.alert('Click', 'This is the "' + text + '" action executing...');
+                    });
+                }
+            });
+        }
+    }, {
+        text: 'Switch action icon',
+        handler: function() {
+            action.setIconClass(action.getIconClass() == 'icon-data' ? 'icon-filter' : 'icon-data');
+        }
+    });
+    tb.doLayout();
+    
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

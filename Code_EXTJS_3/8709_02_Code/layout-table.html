@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+    
+    
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        // Table Layout.
+c1 = { title: 'A cell', html: '<p>colspan = 1<br/>rowspan = 1</p>' }
+// This cell spans 2 columns.
+c2 = { title: 'A cell', html: '<p>colspan = 2<br/>rowspan = 1</p>', colspan: 2 }
+// This cell spans 3 rows.
+c3 = { title: 'A cell', html: '<p>colspan = 1<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>rowspan = 3</p>', rowspan: 3 }
+c4 = { title: 'A cell', html: '<p>colspan = 1<br/>rowspan = 1<p>' }
+// This cell spans 2 rows.
+c5 = { title: 'A cell', html: 'colspan = 1<br/>.<br/>.<br/>.<br/>.<br/>rowspan = 2</p>', rowspan: 2 }
+c6 = { title: 'A cell', html: '<p>colspan = 1<br/>rowspan = 1<p>' }
+c7 = { title: 'A cell', html: '<p>colspan = 1<br/>rowspan = 1<p>' }
+// This cell does not have the panel header.
+c8 = { html: 'Plain cell' }
+        
+        Ext.onReady(function() {
+
+var container = new Ext.Viewport({
+    layout: 'table',
+    defaults: {
+        bodyStyle: 'padding:10px'
+    },
+    layoutConfig: {
+        columns: 4
+    },
+    items: [c1,c2,c3,c4,c5,c6,c7,c8]
+});
+
+        });
+    </script>
+
+<style type="text/css">
+    #table-layout .x-table-layout td {
+        vertical-align:top;
+        padding:5px;
+    }
+</style>
+</head>
+<body id="table-layout">
+</body>
+</html>

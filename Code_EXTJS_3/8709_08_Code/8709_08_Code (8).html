@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+        #tbar 
+        {
+            width:150px;	
+        }
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script src="js/cars.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+
+// The different menu items.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+Ext.onReady(function() {
+
+    Ext.QuickTips.init();
+
+    var onCheckHandler = function(item, checked) {
+        alert('Menu checked: "' + item + '", checked: ' + (checked ? 'checked' : 'unchecked'));
+    };
+
+    var dateMenu = new Ext.menu.DateMenu({
+        handler: function(dp, date) {
+            alert(1);
+        }
+    });
+
+    var colorMenu = new Ext.menu.ColorMenu({
+        handler: function(cm, color) {
+            Ext.Msg.alert('Color picker', 'You picked {0}.', color);
+        }
+    });
+
+    var menu = new Ext.menu.Menu({
+        id: 'mainMenu',
+        items: [{
+            text: 'Radio Options',
+            menu: {
+                items: [
+                     '<b>Choose a Theme</b>',
+                        {
+                            text: 'Aero Glass',
+                            checked: true,
+                            group: 'theme',
+                            checkHandler: onCheckHandler
+                        }, {
+                            text: 'Vista Black',
+                            checked: false,
+                            group: 'theme',
+                            checkHandler: onCheckHandler
+                        }, {
+                            text: 'Gray Theme',
+                            checked: false,
+                            group: 'theme',
+                            checkHandler: onCheckHandler
+                        }, {
+                            text: 'Default Theme',
+                            checked: false,
+                            group: 'theme',
+                            checkHandler: onCheckHandler
+                        }
+                    ]
+            }
+        }, {
+            text: 'Pick a Date',
+            iconCls: 'calendar',
+            menu: dateMenu
+        }, {
+            text: 'Pick a Color',
+            menu: colorMenu
+        }, {
+            text: 'The last menu',
+            checked: true,
+            checkHandler: onCheckHandler
+        }]
+    });
+
+    var tb = new Ext.Toolbar({
+        renderTo: 'tbar',
+        items: [{
+            text: 'Menu Items',
+            menu: menu
+        }]
+
+    });
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="tbar"></div>
+</body>
+</html>

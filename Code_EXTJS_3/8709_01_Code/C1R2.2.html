@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+        Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+        Ext.onReady(function() {
+
+            var colorsStore = new Ext.data.SimpleStore({
+                fields: ['name'],
+                data: [['Blue'],['Red'],['White']]
+            });
+            
+            var combo = new Ext.form.ComboBox({
+                store: colorsStore,
+                displayField: 'name',
+                typeAhead: true,
+                mode: 'local',
+                forceSelection: true,
+                triggerAction: 'all',
+                emptyText: 'Select a color...',
+                selectOnFocus: true,
+                applyTo: 'colors-combo',
+                id: 'colors-combo'
+            });
+
+            // Get a reference to the combobox using Ext.getCmp().
+            var combo = Ext.getCmp("colors-combo");
+            
+            // Using the reference to the combo, add a handler to the 'select' event.
+            combo.on('select', function() {
+            
+                Ext.Msg.alert('Using Ext.getCmp(id)', 'You selected ' + combo.getValue());
+                
+            });
+
+
+        });
+    
+    </script>
+</head>
+<body>
+   <input type="text" id="colors-combo"/>
+</body>
+</html>

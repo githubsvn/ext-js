@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>Hello Ext</title>
+
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-debug.js"></script>
+        <script>
+
+            Ext.application({
+                name: 'HelloExt',
+                launch: function() {
+
+                    Ext.define('Book', {
+                        extend: 'Ext.data.Model',
+                        idProperty: 'BookID',
+                        fields: [{
+                                name: 'BookID',
+                                type: 'int'
+                            }, {
+                                name: 'Title',
+                                type: 'string'
+                            }, {
+                                name: 'Publisher',
+                                type: 'string'
+                            }, {
+                                name: 'ISBN',
+                                type: 'string'
+                            }, {
+                                name: 'PublishDate',
+                                type: 'date',
+                                dateFormat: 'd-m-Y'
+                            }, {
+                                name: 'NumberOfPages',
+                                type: 'int'
+                            }, {
+                                name: 'Read',
+                                type: 'boolean'
+                            }],
+                        validations: [{
+                                type: 'length',
+                                field: 'Title',
+                                min: 1
+                            }, {
+                                type: 'presence',
+                                field: 'Publisher'
+                            }],
+                        proxy: {
+                            type: 'ajax',
+                            api: {
+                                read: 'bookRead.php',
+                                create: 'bookCreate.php',
+                                update: 'bookUpdate.php',
+                                destroy: 'bookDestroy.php'
+                            }
+                        }
+
+                    });
+
+
+                    Book.load(1, {
+                        callback: function(book, operation){
+                            console.log(book);
+                        }
+                    });
+
+
+
+
+
+                } //end launch
+            });
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

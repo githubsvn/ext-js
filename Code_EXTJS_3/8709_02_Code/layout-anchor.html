@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+
+            // Maintaining relative dimensions with anchor layout.
+
+            panel1 = new Ext.Panel({
+                title: 'Panel 1',
+                html: 'Width = container width\' - 50 px',
+                // Width = container width' - 50 px.
+                anchor: '-50'
+            });
+
+            panel2 = new Ext.Panel({
+                title: 'Panel 2',
+                html: 'Width = 75% of container',
+                // Width = 75% of container.
+                anchor: '75%'
+            });
+
+            panel3 = new Ext.Panel({
+                title: 'Panel 3',
+                html: 'Width = 50% of container<br/>Height = container\'s - 150 px',
+                // Width = 50% of container, 
+                // Height = container's - 150 px.
+                anchor: '50%, -150'
+            });
+
+
+            var container = new Ext.Window({
+                title: 'Anchor Layout',
+                width: 600,
+                height: 350,
+                defaults: { bodyStyle: 'padding:10px' },
+                // The anchored items will automatically resize 
+                // to maintain the same relative dimensions.
+                layout: 'anchor',
+                items: [panel1, panel2, panel3]
+            });
+
+            container.show();
+
+        });
+    
+    </script>
+
+</head>
+<body>
+</body>
+</html>

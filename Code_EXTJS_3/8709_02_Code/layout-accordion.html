@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+
+            Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+
+            // Accordion layout.
+            panel1 = new Ext.Panel({
+                title: 'Mail',
+                items: [{
+                    xtype: 'treepanel',
+                    id: 'inbox-tree',
+                    autoScroll: true,
+                    animate: true,
+                    enableDD: true,
+                    containerScroll: true,
+                    border: false,
+                    dataUrl: 'mail-folders.php',
+                    root: {
+                        nodeType: 'async',
+                        text: 'MailBox',
+                        draggable: false,
+                        id: 'mailbox'
+                    }
+}]
+                });
+
+                panel2 = new Ext.Panel({
+                    title: 'Calendar',
+                    bodyStyle: 'padding:10px',
+                    items: [{ xtype: 'datepicker',
+                        style: 'border:0'
+}]
+                    });
+
+                    panel3 = new Ext.Panel({
+                        title: 'Contacts',
+                        bodyStyle: 'padding:10px',
+                        items: [{ xtype: 'fieldset',
+                            title: 'Current View',
+                            autoHeight: true,
+                            bodyStyle: 'padding:3px',
+                            items: [
+        { xtype: 'radio', boxLabel: 'Address Cards', hideLabel: true, name: 'contacts-view', checked: true },
+        { xtype: 'radio', boxLabel: 'Phone List', hideLabel: true, name: 'contacts-view' },
+        { xtype: 'radio', boxLabel: 'By Category', hideLabel: true, name: 'contacts-view' },
+        { xtype: 'radio', boxLabel: 'By Location', hideLabel: true, name: 'contacts-view'}]
+}]
+                        });
+
+
+                        var container = new Ext.Panel({
+                            title: 'Accordidon Layout',
+                            width: 200,
+                            height: 350,
+                            applyTo: 'accordion-panel',
+                            // Displays one item at a time in a stacked layout.
+                            layout: 'accordion',
+                            items: [panel1, panel2, panel3]
+                        });
+
+                        // Expand the root node of the tree.
+                        Ext.getCmp('inbox-tree').getRootNode().expand();
+
+
+                    });
+    
+    </script>
+
+</head>
+<body>
+    <div id="accordion-panel" style="margin: 10px">
+    </div>
+</body>
+</html>

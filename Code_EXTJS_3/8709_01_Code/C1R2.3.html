@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+
+            // Get a reference to the combobox using Ext.getCmp().
+            var nodes = Ext.query('div');
+            
+            Ext.each(nodes, function(item, index, allItems) {
+
+                document.write(index + '<br/>');
+
+            });
+
+
+        });
+    
+    </script>
+</head>
+<body>
+   <div id="div-1">This is the first div</div>
+   <div id="div-2">This is the second div</div>
+   <div id="div-3">This is the thirst div</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+
+        Ext.onReady(function() {
+
+            var colorsArray = new Array();
+            colorsArray[0] = 'Blue';
+            colorsArray[1] = 'Red';
+            colorsArray[2] = 'White';
+
+            document.write(Ext.encode(colorsArray) + '<br/>');
+
+            //Ext.Msg.alert('Ext.encode result', json);
+
+            var colorsJson = '["Blue","Red","White"]';
+
+            var colorsArray = Ext.decode(colorsJson);
+
+            document.write(colorsArray[0] + '<br/>');
+
+            var colorsObject = { color1: 'Blue', color2: 'Red', color3: 'White' };
+
+            var encodedUrl = Ext.urlEncode(colorsObject);
+            // encodedUrl is an encoded URL query string: color1=Blue&color2=Red&color3=White.
+            document.write(encodedUrl + '<br/>');
+
+            encodedUrl = 'color1=Blue&color2=Red&color3=White';
+
+            colorsObject = Ext.urlDecode(encodedUrl);
+            // Now colorsObject ‘s color1 property’s value is ‘Blue’, 
+            // color2 property’s value is ‘Red’ and color3’s value is ‘White’.
+            document.write(colorsObject.color1 + '<br/>');
+
+
+        });
+
+
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>

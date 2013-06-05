@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+    <link href="../css/samples.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+
+            // A wizard with card layout.
+
+// Each card is a wizard step.
+card0 = new Ext.Panel({
+    id: 'card-0',
+    html: '<h1>Step 1 of 3</h1><p>Welcome to the wizard.</p><p>Click the "Next" button to continue...</p>'
+});
+card1 = new Ext.Panel({
+    id: 'card-1',
+    html: '<h1>Step 2 of 3</h1><p>One more step left.</p><p>Please click the "Next" button to continue...</p>'
+});
+card2 = new Ext.Panel({
+    id: 'card-2',
+    html: '<h1>Step 3 of 3</h1><p>This is the las step. You made it!</p>'
+});
+
+// The function that will switch the cards.
+var navigationHandler = function(increment) {
+    var layout = Ext.getCmp('card-wizard').getLayout();
+    var activeItemIdx = layout.activeItem.id.split('card-')[1];
+    var next = parseInt(activeItemIdx) + increment;
+    layout.setActiveItem(next);
+    if (next == 0) {
+        Ext.getCmp('card-prev').setDisabled(true);
+    } else {
+        Ext.getCmp('card-prev').setDisabled(false);
+    }
+    if (next == 2) {
+        Ext.getCmp('card-next').setDisabled(true);
+    } else {
+        Ext.getCmp('card-next').setDisabled(false);
+    }
+};
+
+var cardWizard = new Ext.Panel({
+    id: 'card-wizard',
+    title: 'A wizard using card layout',
+    applyTo: 'card-panel',
+    width: 400,
+    height: 300,
+    frame:true,
+    layout: 'card',
+    activeItem: 0,
+    bodyStyle: 'padding:15px;background-color:#ffffff',
+    defaults: { border: false },
+    bbar: ['->', {
+        id: 'card-prev',
+        text: 'Previous',
+        handler: navigationHandler.createDelegate(this, [-1]),
+        disabled: true,
+        iconCls: 'btn-arrow-left-green',
+        cls:'x-btn-text-icon',
+        minWidth:50
+    }, {
+        id: 'card-next',
+        text: 'Next',
+        handler: navigationHandler.createDelegate(this, [1]),
+        iconCls: 'btn-arrow-right-green',
+        cls: 'x-btn-text-icon',
+        minWidth: 50,
+        style:'text-align:left'
+    }],
+        items: [card0, card1, card2]
+});
+
+            });
+    
+    </script>
+
+    
+
+</head>
+<body>
+    <div id="card-panel" style="margin: 10px">
+    </div>
+</body>
+</html>

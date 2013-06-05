@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+	    .app-img
+	    {
+	    	vertical-align: middle;
+	    	margin: 0px 20px 10px 0px;
+	    }	
+	    .app-msg
+	    {
+	    	font-size:large;
+	    }
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>    
+
+    <script type="text/javascript">
+
+
+// Drag and drop between two grids.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+// Required if showing validation messages
+Ext.QuickTips.init();
+
+var sharedFields = ['film_id', 'title', 'rating',
+    { name: 'length', type: 'int' },
+    { name: 'price', type: 'float' }
+]
+
+var moviesStore = new Ext.data.JsonStore({
+    url: 'grid-to-grid-drag-drop.php',
+    root: 'movies',
+    totalProperty: 'count',
+    baseParams: { action: 'movies' },
+    fields: sharedFields
+});
+
+var selectedMoviesStore = new Ext.data.JsonStore({
+    root: 'movies',
+    fields: sharedFields
+});
+
+var sharedColumns = [{ header: "ID", width: 30, dataIndex: 'film_id', sortable: true, hidden: true },
+    { id: 'title-col',
+        header: "Title",
+        width: 180,
+        dataIndex: 'title',
+        sortable: true
+
+    },
+    { header: "Rating",
+        width: 45,
+        dataIndex: 'rating',
+        sortable: true
+    },
+    { header: "Length",
+        width: 45,
+        dataIndex: 'length',
+        sortable: true,
+        align: 'right',
+        renderer: function(v) {
+            return v + ' min';
+        }
+    },
+    { header: "Price",
+        width: 45,
+        dataIndex: 'price',
+        sortable: true,
+        align: 'right',
+        renderer: Ext.util.Format.usMoney
+    }
+]
+
+Ext.onReady(function() {
+
+    var moviesGrid = new Ext.grid.GridPanel({
+        title: 'Movies',
+        enableDragDrop: true,
+        ddGroup: 'selectedMoviesDDGroup',
+        renderTo: 'movies-div',
+        store: moviesStore,
+        columns: sharedColumns,
+        autoExpandColumn: 'title-col',
+        width: 370,
+        height: 300,
+        loadMask: true,
+        columnLines: true,
+        viewConfig: {
+            forceFit: true
+        }
+    });
+
+    var selectedMoviesGrid = new Ext.grid.GridPanel({
+        title: 'Selected Movies',
+        enableDragDrop: true,
+        ddGroup: 'availableMoviesDDGroup',
+        renderTo: 'selected-movies-div',
+        store: selectedMoviesStore,
+        columns: sharedColumns,
+        autoExpandColumn: 'title-col',
+        width: 370,
+        height: 300,
+        loadMask: true,
+        columnLines: true,
+        viewConfig: {
+            forceFit: true
+        }
+    });
+
+    var moviesGridDropTargetEl = moviesGrid.getView().el.dom.childNodes[0].childNodes[1];
+    
+    var moviesGridDropTarget = new Ext.dd.DropTarget(moviesGridDropTargetEl, {
+        ddGroup: 'availableMoviesDDGroup',
+        copy: true,
+        notifyDrop: function(ddSource, e, data) {
+            function addRow(record, index, allItems) {
+
+                var foundItem = moviesStore.find('title', record.data.name);
+                
+                if (foundItem == -1) {
+                    moviesStore.add(record);
+                    moviesStore.sort('title', 'ASC');                    
+                    ddSource.grid.store.remove(record);
+                }
+            }
+
+            Ext.each(ddSource.dragData.selections, addRow);
+            return (true);
+        }
+    });
+
+    // This will make sure we only drop to the view container
+    var selectedMoviesGridDropTargetEl = selectedMoviesGrid.getView().el.dom.childNodes[0].childNodes[1]
+
+    var selectedMoviesGridDropTarget = new Ext.dd.DropTarget(selectedMoviesGridDropTargetEl, {
+        ddGroup: 'selectedMoviesDDGroup',
+        copy: false,
+        notifyDrop: function(ddSource, e, data) {
+
+            function addRow(record, index, allItems) {
+
+                var foundItem = selectedMoviesStore.find('title', record.data.name);
+                if (foundItem == -1) {
+                    selectedMoviesStore.add(record);
+                    selectedMoviesStore.sort('title', 'ASC');
+                    ddSource.grid.store.remove(record);
+                }
+            }
+            
+            Ext.each(ddSource.dragData.selections, addRow);
+            return (true);
+        }
+    }); 	
+
+    moviesStore.load();
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="movies-div" ></div>
+   <br/><br/>
+   <div id="selected-movies-div" ></div>
+</body>
+</html>

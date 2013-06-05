@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        // Card Layout - Tab Panel
+
+        // There is no actual tab class. 
+        // Each tab is simply a Component, such as a Panel.
+//        var tab1 = {
+//            xtype:'panel',
+//            title: 'First Tab',
+//            html: 'Content for the first tab'
+//        };
+//        var tab2 = {
+//            title: 'Second Tab',
+//            html: 'Content for the second tab'
+//        };
+//        var tab3 = {
+//            title: 'Third Tab',
+//            html: 'Content for the third tab'
+//        };
+
+
+        Ext.onReady(function() {
+
+//            var tabPanel = new Ext.TabPanel({
+//                title: 'Tab Panels',
+//                width: 400,
+//                height: 300,
+//                applyTo: 'tab-panel',
+//                // Each tab is just a panel managed by the card layout.
+//                items: [tab1, tab2, tab3],
+//                activeItem: 0,
+//                defaults: {bodyStyle:'padding:5px'}
+        //            });
+
+        var tabPanel = new Ext.TabPanel({
+            renderTo: 'my-tabs',
+            activeTab: 0,
+            items: [
+    { contentEl: 'tab1', title: 'Tab 1' },
+    { contentEl: 'tab2', title: 'Tab 2' }
+    ]
+        });
+
+        });
+    </script>
+
+</head>
+<body>
+<div id="my-tabs" style="width:400px;margin:10px;"></div>
+<div id="tab1" class="x-hide-display" style="height:200px">A simple tab</div>
+<div id="tab2" class="x-hide-display" style="height:200px">Another one</div>
+    <!--<div id="tab-panel" style="margin: 10px">
+    </div>-->
+</body>
+</html>

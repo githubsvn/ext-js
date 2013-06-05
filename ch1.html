@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title>Hello Ext</title>
+
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-debug.js"></script>
+        <script>
+
+            Ext.application({
+                name: 'HelloExt',
+                launch: function() {
+
+                    var panel = Ext.create('Ext.panel.Panel', {
+                        height: 500,
+                        renderTo: Ext.getBody(),
+                        layout: {
+                            type: 'vbox',
+                            align: 'stretch'
+                        },
+                        items: [{
+                                xtype: 'tabpanel',
+                                itemId: 'mainTabPanel',
+                                flex: 1,
+                                items: [{
+                                        xtype: 'panel',
+                                        title: 'Users',
+                                        id: 'usersPanel',
+                                        layout: {
+                                            type: 'vbox',
+                                            align: 'stretch'
+                                        },
+                                        tbar: [{
+                                                xtype: 'button',
+                                                text: 'Edit',
+                                                itemId: 'editButton'
+                                            }],
+                                        items: [{
+                                                xtype: 'form',
+                                                border: 0,
+                                                items: [{
+                                                        xtype: 'textfield',
+                                                        fieldLabel: 'Name',
+                                                        allowBlank: false
+                                                    }, {
+                                                        xtype: 'textfield',
+                                                        fieldLabel: 'Email',
+                                                        allowBlank: false
+                                                    }],
+                                                buttons: [{
+                                                        xtype: 'button',
+                                                        text: 'Save',
+                                                        action: 'saveUser'
+                                                    }]
+                                            }, {
+                                                xtype: 'grid',
+                                                flex: 1,
+                                                border: 0,
+                                                columns: [{
+                                                        header: 'Name',
+                                                        dataIndex: 'Name',
+                                                        flex: 1
+                                                    }, {
+                                                        header: 'Email',
+                                                        dataIndex: 'Email'
+                                                    }],
+                                                store: Ext.create('Ext.data.Store', {
+                                                    fields: ['Name', 'Email'],
+                                                    data: [{
+                                                            Name: 'Joe Bloggs',
+                                                            Email: 'joe@example.com'
+                                                        }, {
+                                                            Name: 'Jane Doe',
+                                                            Email: 'jane@example.com'
+                                                        }]
+                                                })
+                                            }]
+                                    }]
+                            }, {
+                                xtype: 'component',
+                                itemId: 'footerComponent',
+                                html: 'Footer Information',
+                                extraOptions: {
+                                    option1: 'test',
+                                    option2: 'test'
+                                },
+                                height: 40
+                            }]
+                    });
+
+                } //end launch
+            });
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

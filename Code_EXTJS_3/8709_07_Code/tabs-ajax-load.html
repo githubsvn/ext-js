@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Tab that loads its contents via Ajax.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+Ext.onReady(function() {
+
+    var tabs = new Ext.TabPanel({
+        renderTo: document.body,
+        activeTab: 0,
+        width: 500,
+        height: 250,
+        plain: true,
+        defaults: { autoScroll: true },
+        items: [{
+                title: 'First Tab',
+                html: ""
+            }, {
+                title: 'Ajax load from html file',
+                bodyStyle: 'padding:5px;',
+                autoLoad: { url: 'tabs-ajax-load-data.html' }
+            }, {
+            title: 'Ajax load from DB',
+                bodyStyle:'padding:5px;',
+                autoLoad: { url: 'tabs-ajax-load.php', params: 'xaction=load' }
+            }
+        ]
+    });
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

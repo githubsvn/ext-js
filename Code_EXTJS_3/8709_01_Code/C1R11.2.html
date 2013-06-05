@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        Ext.override(Ext.util.MixedCollection, {
+            // The new add function, with the unique value check.
+            add: function(key, o) {
+
+                // The unique value check.
+                if (this.indexOf(o) > -1) return null;
+
+                // From this point, the code is the add function's code.
+                if (arguments.length == 1) {
+                    o = arguments[0];
+                    key = this.getKey(o);
+                }
+                if (typeof key == "undefined" || key === null) {
+                    this.length++;
+                    this.items.push(o);
+                    this.keys.push(null);
+                } else {
+                    var old = this.map[key];
+                    if (old) {
+                        return this.replace(key, o);
+                    }
+                    this.length++;
+                    this.items.push(o);
+                    this.map[key] = o;
+                    this.keys.push(key);
+                }
+                this.fireEvent("add", this.length - 1, o, key);
+                return o;
+            }
+
+        });
+
+
+        Ext.onReady(function() {
+
+            // Create our enhanced collection.
+            var col = new Ext.util.MixedCollection();
+
+            // Confirm that the same value cannot be added twice.
+            col.add("key 1", "value 1");
+
+            document.write("Original count: " + col.getCount() + "<br/>");
+
+            // Try to add a duplicate.
+            col.add("key 2", "value 1");
+            // Number of elements in the collection is still 1.
+
+            document.write("Count after trying to add a duplicate: " + col.getCount() + "<br/>");
+
+        });
+
+
+    </script>
+
+</head>
+<body>
+</body>
+</html>

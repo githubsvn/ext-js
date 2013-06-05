@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+	
+	<style type="text/css">
+	    .app-img
+	    {
+	    	vertical-align: middle;
+	    	margin: 0px 20px 10px 0px;
+	    }	
+	    .app-msg
+	    {
+	    	font-size:large;
+	    }
+	</style>
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+        // Setting the minimum and maximum allowed length of a field’s value
+
+        Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+		// Required if showing validation messages
+        Ext.QuickTips.init();
+
+        //Ext.form.Field.prototype.msgTarget = 'side';
+
+var loginForm = { xtype: 'form',
+    id: 'login-form',
+    bodyStyle: 'padding:15px;background:transparent',
+    border: false,
+    url:'login.php',
+    items: [
+	    { xtype: 'box', autoEl: { tag: 'div',
+	        html: '<div class="app-msg"><img src="img/magic-wand.png" class="app-img" />Log in to The Magic Forum</div>'
+	    }
+	    },
+	    { xtype: 'textfield', id: 'login-user', fieldLabel: 'Username',
+	        allowBlank: false, minLength: 3, maxLength: 32
+	    },
+	    { xtype: 'textfield', id: 'login-pwd', fieldLabel: 'Password', inputType: 'password',
+	        allowBlank: false, minLength: 6, maxLength: 32,
+	        minLengthText: 'Password must be at least 6 characters long.'
+	    }
+    ],
+    buttons: [{
+        text: 'Login',
+        handler: function() {
+            Ext.getCmp('login-form').getForm().submit();
+        }
+    }, {
+        text: 'Cancel',
+        handler: function() {
+            win.hide();
+        }
+    }]
+}
+
+Ext.onReady(function() {
+
+    win = new Ext.Window({
+        layout: 'form',
+        width: 340,
+        autoHeight: true,
+        closeAction: 'hide',
+        
+        items: [loginForm]
+
+    });
+
+    win.show();
+
+});
+    
+    </script>
+</head>
+<body>
+   
+</body>
+</html>

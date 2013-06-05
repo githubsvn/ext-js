@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        // Create custom classes that inherit ExtJS’s functionality
+        Ext.namespace("Samples");
+
+        Samples.ObservableList = function() {
+
+            this.items = [];
+            this.length = 0;
+            // The events our custom class will expose.
+            this.addEvents("add", "remove", "clear");
+
+            Samples.ObservableList.superclass.constructor.call(this);
+        };
+
+        Ext.extend(Samples.ObservableList, Ext.util.Observable, {
+
+            allowFunctions: false,
+
+            // Adds an item to the list and
+            // returns the position into which the new element was inserted.
+            add: function(o) {
+                this.items.push(o);
+                this.length++;
+                // Fire the add event, returning the position 
+                // into which the new element was inserted.
+                pos = this.length - 1;
+                this.fireEvent("add", pos);
+                return pos;
+            },
+
+            // Inserts an item to the List at the specified index.
+            insert: function(index, o) {
+                // If the index is outside the list, insert the element at the 
+                // end of the list.
+                if (index >= this.length) {
+                    return this.add(o);
+                }
+                this.length++;
+                this.items.splice(index, 0, o);
+                this.fireEvent("add", index);
+            },
+
+            // Removes all items from the list.
+            clear: function() {
+                this.length = 0;
+                this.items = [];
+                this.fireEvent("clear");
+            },
+
+            // Determines the index of a specific item in the list.
+            indexOf: function(o) {
+                return this.items.indexOf(o);
+            },
+
+            // Determines whether the List contains a specific value.
+            contains: function(o) {
+                return this.indexOf(o) != -1;
+            },
+
+            // Our enumerator function. Executes the specified function once 
+            // for every element in the list.
+            each: function(fn, scope) {
+                var items = [].concat(this.items); for (var i = 0, len = items.length; i < len; i++) {
+                    if (fn.call(scope || items[i], items[i], i, len) === false) {
+                        break;
+                    }
+                }
+            },
+
+            // Removes the item at the specified index.
+            removeAt: function(index) {
+                if (index < this.length && index >= 0) {
+                    this.length--;
+                    var o = this.items[index];
+                    this.items.splice(index, 1);
+                    this.fireEvent("remove", o);
+                }
+            },
+
+            // Removes the first occurrence of a specific object.
+            remove: function(o) {
+                this.removeAt(this.indexOf(o));
+            },
+
+            // Returns the element at the specified index.
+            item: function(index) {
+                var item = this.items[index];
+                return item;
+            }
+
+        });
+
+        Samples.ObservableList.prototype.get = Samples.ObservableList.prototype.item;
+
+        Ext.onReady(function() {
+
+            list = new Samples.ObservableList();
+
+            for (var i = 0; i < 15; i++) {
+                pos = list.add("test " + i);
+            }
+
+            // Add handlers for the list's events.
+            list.on("remove", function(o) {
+                alert("Removed: " + o);
+            });
+
+            list.on("add", function(index) {
+                alert("Added at position: " + index);
+            });
+
+            list.on("clear", function() {
+                alert("List length is: " + list.length);
+            });
+
+            document.write("List length is " + list.length + "<br/>");
+            // Insert an additional element and check that the add event fires.
+            var index = 2;
+            list.insert(index, "A new item");
+            document.write("Just inserted: " + list.item(index) + "<br/>");
+            document.write("List length is: " + list.length + "<br/>");
+
+            // Remove an item an verify that the remove event fires.
+            index = 5;
+            document.write("Removing item at position" + index + "<br/>");
+            list.removeAt(index);
+            document.write("List length after removal: " + list.length + "<br/>");
+            document.write("Clearing list...<br/>");
+            // Remove all items and check that the clear event fires.
+            list.clear();
+            document.write("List length after clear: " + list.length + "<br/>");
+
+        });
+    </script>
+
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        // Fit Layout
+
+greedyPanel = { title: 'Fit Layout',
+    html: 'Panel using FitLayout'
+}
+
+        Ext.onReady(function() {
+
+var container = new Ext.Viewport({
+
+    layout: 'fit',
+    defaults: {
+        bodyStyle: 'padding:10px'
+    },
+    items: [
+        greedyPanel
+    ]
+});
+
+        });
+    </script>
+
+</head>
+<body>
+</body>
+</html>

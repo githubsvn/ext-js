@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+
+            // How to scope variables that are not global 
+            Ext.namespace('ExtJSCookbook.Samples');
+
+            ExtJSCookbook.Samples.var1 = 'var1 (local)';
+            // ExtJSCookbook.Samples.var1 is limited to the ExtJSCookbook.Samples namespace
+            var var1 = 'var1 (global)';
+            // var1 is a global variable
+
+            document.write(ExtJSCookbook.Samples.var1 + '<br/>');
+            document.write(var1 + '<br/>');
+
+            // A custom type inside the ExtJSCookbook.Samples namespace
+            ExtJSCookbook.Samples.Person = function() {
+                return {
+                    firstName: '',
+                    lastName: '',
+                    show: function() {
+                        alert(this.firstName + ' ' + this.lastName);
+                    }
+                }
+            }
+
+            var person1 = new ExtJSCookbook.Samples.Person();
+            person1.firstName = 'Jorge';
+            person1.lastName = 'Ramon';
+            person1.show();
+
+
+        });
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>

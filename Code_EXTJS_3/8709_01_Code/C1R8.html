@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+
+            Date.patterns = {
+                ISO8601Long: "Y-m-d H:i:s",
+                ISO8601Short: "Y-m-d",
+                ShortDate: "n/j/Y",
+                LongDate: "l, F d, Y",
+                FullDateTime: "l, F d, Y g:i:s A",
+                MonthDay: "F d",
+                ShortTime: "g:i A",
+                LongTime: "g:i:s A",
+                SortableDateTime: "Y-m-d\\TH:i:s",
+                UniversalSortableDateTime: "Y-m-d H:i:sO",
+                YearMonth: "F, Y"
+            };
+
+
+            // Formatting and manipulating dates
+            var now = new Date();
+            var ISO8601Long = now.format(Date.patterns.ISO8601Long);
+            //ISO8601Long is similar to 2009-03-05 14:01:45
+            var ISO8601Short = now.format(Date.patterns.ISO8601Short);
+            //ISO8601Long is similar to 2009-03-05
+            var ShortDate = now.format(Date.patterns.ShortDate);
+            //ISO8601Long is similar to 3/5/2009
+            var LongDate = now.format(Date.patterns.LongDate);
+            //ISO8601Long is similar to Thursday, March 05, 2009
+            var FullDateTime = now.format(Date.patterns.FullDateTime);
+            //ISO8601Long is similar to Thursday, March 05, 2009 2:01:45 PM
+            var MonthDay = now.format(Date.patterns.MonthDay);
+            //ISO8601Long is similar to March 05
+            var ShortTime = now.format(Date.patterns.ShortTime);
+            //ISO8601Long is similar to 2:01 PM
+            var LongTime = now.format(Date.patterns.LongTime);
+            //ISO8601Long is similar to 2:01:45 PM
+            var SortableDateTime = now.format(Date.patterns.SortableDateTime);
+            //ISO8601Long is similar to 2009-03-05T14:01:45
+            var UniversalSortableDateTime = now.format(Date.patterns.UniversalSortableDateTime);
+            //ISO8601Long is similar to 2009-03-05 14:01:45-0500
+            var YearMonth = now.format(Date.patterns.YearMonth);
+            //ISO8601Long is similar to March, 2009 
+
+            document.write(ISO8601Long + '<br/>');
+            document.write(ISO8601Short + '<br/>');
+            document.write(ShortDate + '<br/>');
+            document.write(LongDate + '<br/>');
+            document.write(FullDateTime + '<br/>');
+            document.write(MonthDay + '<br/>');
+            document.write(ShortTime + '<br/>');
+            document.write(LongTime + '<br/>');
+            document.write(SortableDateTime + '<br/>');
+            document.write(UniversalSortableDateTime + '<br/>');
+            document.write(YearMonth + '<br/>');
+
+            var aDate = new Date();
+
+            aDate = Date.parseDate("March, 2009", Date.patterns.YearMonth);
+            //aDate = Thu Mar 5 00:00:00 EST 2009
+            document.write(aDate + '<br/>');
+            aDate = Date.parseDate("2:01:45 PM", Date.patterns.LongTime);
+            //aDate = Thu Mar 5 14:01:45 EST 2009
+            document.write(aDate + '<br/>');
+            aDate = Date.parseDate("2009-03-05", Date.patterns.ISO8601Short);
+            //aDate = Thu Mar 5 00:00:00 EST 2009
+            document.write(aDate + '<br/>');
+
+            var low = Date.parseDate("July, 2008", Date.patterns.YearMonth);
+            var high = Date.parseDate("July, 2009", Date.patterns.YearMonth);
+            var now = new Date();
+            var inRange = now.between(low, high);
+            // inRange is true
+            document.write(inRange + '<br/>');
+        });
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>

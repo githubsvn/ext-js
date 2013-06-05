@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+	    .app-img
+	    {
+	    	vertical-align: middle;
+	    	margin: 0px 20px 10px 0px;
+	    }	
+	    .app-msg
+	    {
+	    	font-size:large;
+	    }
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>    
+
+    <script type="text/javascript">
+
+
+// Pairing two grids in a master-details relationship.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+// Required if showing validation messages
+Ext.QuickTips.init();
+
+var actorsStore = new Ext.data.JsonStore({
+    url: 'grid-master-details.php',
+    root: 'actors',
+    baseParams: { action: 'actors' },
+    fields: ['actor_id', 'first_name', 'last_name']
+});
+
+var moviesStore = new Ext.data.JsonStore({
+    url: 'grid-master-details.php',
+    root: 'movies',
+    totalProperty: 'count',
+    baseParams: { action: 'movies' },
+    fields: ['film_id', 'title', 'rating',
+    { name: 'length', type: 'int' },
+    { name: 'price', type: 'float'}]
+});
+
+Ext.onReady(function() {
+
+    var actorsGrid = new Ext.grid.GridPanel({
+        title: 'Actors',
+        renderTo: 'actors-div',
+        store: actorsStore,
+        sm: new Ext.grid.RowSelectionModel({ singleSelect: true }),
+        columns: [{ header: "actor_id", width: 30, dataIndex: 'fid', sortable: true, hidden: true },
+            { id: 'first-name',
+                header: "First Name",
+                width: 150,
+                dataIndex: 'first_name',
+                sortable: true
+
+            },
+            { id: 'last-name',
+                header: "Last Name",
+                width: 150,
+                dataIndex: 'last_name',
+                sortable: true
+            }
+        ],
+        autoExpandColumn: 'last-name',
+        width: 570,
+        height: 200,
+        loadMask: true,
+        viewConfig: {
+            forceFit: true
+        }
+    });
+
+    var moviesGrid = new Ext.grid.GridPanel({
+        title: 'Movies',
+        renderTo: 'movies-div',
+        store: moviesStore,
+        columns: [{ header: "ID", width: 30, dataIndex: 'film_id', sortable: true, hidden: true },
+            { id: 'title-col',
+                header: "Title",
+                width: 180,
+                dataIndex: 'title',
+                sortable: true
+
+            },
+            { header: "Rating",
+                width: 65,
+                dataIndex: 'rating',
+                sortable: true
+            },
+            { header: "Length",
+                width: 65,
+                dataIndex: 'length',
+                sortable: true,
+                align: 'right',
+                renderer: function(v) {
+                    return v + ' min';
+                }
+            },
+            { header: "Price",
+                width: 65,
+                dataIndex: 'price',
+                sortable: true,
+                align: 'right',
+                renderer: Ext.util.Format.usMoney
+            }
+        ],
+        autoExpandColumn: 'title-col',
+        width: 570,
+        height: 300,
+        loadMask: true,
+        columnLines: true,
+        viewConfig: {
+            forceFit: true
+        }
+    });
+
+    actorsGrid.getSelectionModel().on('rowselect', function(sm, rowIndex, record) {
+        moviesGrid.setTitle('Movies staring ' + record.data.first_name + ' ' + record.data.last_name);
+        moviesStore.load({ params: { 'actor': record.data.actor_id} });
+    });
+
+    actorsStore.load();
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="actors-div"></div>
+   <br /><br />
+   <div id="movies-div" ></div>
+</body>
+</html>

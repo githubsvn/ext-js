@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+	   
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Column chart with local data
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+Ext.chart.Chart.CHART_URL = '../ext3/charts.swf';
+
+function generateData() {
+    var data = [];
+    var companies = ['MSFT','YHOO','GOOG','JAVA'];
+    for (var i = 0; i < 4; ++i) {
+        data.push([companies[i], (Math.floor(Math.random() * 11) + 1) * 10]);
+    }
+    return data;
+}
+
+var store = new Ext.data.ArrayStore({
+    fields: ['stock', 'price'],
+    data: generateData()
+});
+
+function refreshData() {
+    store.loadData(generateData());
+}
+
+Ext.onReady(function() {
+
+    var pnl = new Ext.Panel({
+        width: 400,
+        height: 400,
+        renderTo: document.body,
+        title: 'Crazy Stock Prices',
+        items: {
+            xtype: 'columnchart',
+            store: store,
+            yField: 'price',
+            xField: 'stock',
+            xAxis: new Ext.chart.CategoryAxis({
+                title: 'Symbol'
+            }),
+            yAxis: new Ext.chart.NumericAxis({
+                title: 'Price',
+                labelRenderer: Ext.util.Format.numberRenderer('$ 0,000.00')
+            })
+        }
+    });
+        
+    Ext.TaskMgr.start({
+        run: refreshData,
+        interval: 5000
+    });
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

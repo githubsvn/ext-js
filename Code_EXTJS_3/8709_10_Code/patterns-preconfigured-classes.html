@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+       
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Using preconfigured classes with canned functionality.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+
+Ext.ns('Dashboard');
+
+Dashboard.Portlet = Ext.extend(Ext.Panel, {
+    
+    initComponent: function() {
+
+         Ext.apply(this, {
+             anchor: '100%',
+             frame: true,
+             collapsible: true,
+             draggable: true,
+             height: 150,    // Default height and widths.
+             width: 200,
+             tools: [{
+                 id: 'gear',
+                 handler: function() {
+                     // Put common handler code here.
+                     Ext.Msg.alert('Message', 'The Settings tool was clicked.');
+                 }
+             }, {
+                 id: 'close',
+                 handler: function(e, target, panel) {
+                    // Put common handler code here.
+                    Ext.Msg.alert('Message', 'The Close tool was clicked.');
+                 }
+            }]    
+         });
+
+         Dashboard.Portlet.superclass.initComponent.apply(this, arguments);
+    }
+});
+
+
+Ext.onReady(function() {
+
+    var p1 = new Dashboard.Portlet({
+        title: 'Porlet 1',
+        renderTo: 'p1',
+        html:'A preconfigured panel'
+    })
+
+    var p2 = new Dashboard.Portlet({
+        title: 'Porlet 2',
+        renderTo: 'p2',
+        html: 'Another preconfigured panel'
+    })
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   <div id="p1"></div>
+   <br />
+    <br />
+    <div id="p2"></div>
+</body>
+</html>

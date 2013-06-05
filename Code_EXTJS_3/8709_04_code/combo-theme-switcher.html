@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />	
+	
+	<script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+    
+    <script type="text/javascript">
+
+
+        // Combo box - Theme switcher.
+
+        Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+
+var cp = new Ext.state.CookieProvider({
+    expires: new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 365)) //365 days
+});
+
+Ext.state.Manager.setProvider(cp);
+
+function setTheme(t) {
+    Ext.util.CSS.swapStyleSheet('theme', '../ext/css/' + t);
+}
+
+var themesStore = new Ext.data.SimpleStore({
+    fields: ['file', { name: 'name', type: 'string'}],
+	data: [
+		 ['xtheme-default.css', 'Ext Blue'],
+		['xtheme-gray.css', 'Gray'],
+		['xtheme-darkgray.css', 'Dark Gray'],
+		['xtheme-black.css', 'Black'],
+		['xtheme-olive.css', 'Olive'],
+		['xtheme-purple.css', 'Purple'],
+		['xtheme-slate.css', 'Slate'],
+		['xtheme-slickness.css', 'Slickness'],
+		['xtheme-vista.css', 'Vista']
+	]
+});
+
+themesStore.sort('name');
+
+var themesCombo = new Ext.form.ComboBox({
+    xtype: 'combo',
+    store: themesStore,
+    displayField: 'name',
+    valueField: 'file',
+    editable: false,
+    mode: 'local',
+    forceSelection: true,
+    triggerAction: 'all',
+    fieldLabel: 'Theme',
+    lazyRender: true,
+    lazyInit: true,
+    listeners: {
+        select: function(combo, record, index) {
+            setTheme(record.data.file);
+            Ext.state.Manager.set('theme', record.data.file);
+        }
+    }
+});
+
+Ext.onReady(function() {
+
+    var themesPanel = new Ext.Panel({
+        frame: true,
+        title: 'Theme Switcher',
+        bodyStyle: 'padding:5px',
+        width: 400,
+        layout: 'form',
+        items: [themesCombo]
+    });
+
+    var theme = 'xtheme-default.css';
+
+    if (Ext.state.Manager.getProvider()) {
+        theme = Ext.state.Manager.get('theme') || 'xtheme-default.css';
+    }
+
+    themesCombo.setValue(theme);
+    setTheme(theme);
+
+    themesPanel.render(document.body);
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

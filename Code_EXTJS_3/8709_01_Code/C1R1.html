@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+
+        Ext.onReady(function() {
+
+            var browser = "";
+
+            if (Ext.isChrome) {
+                browser = "Chrome";
+            }
+
+            if (Ext.isGecko) {
+                browser = "Gecko";
+            }
+
+            if (Ext.isGecko2) {
+                browser = "Gecko2";
+            }
+
+            if (Ext.isGecko3) {
+                browser = "Gecko3";
+            }
+
+            if (Ext.isIE) {
+                browser = "IE";
+            }
+
+            if (Ext.isIE6) {
+                browser = "IE6";
+            }
+
+            if (Ext.isIE7) {
+                browser = "IE7";
+            }
+
+            if (Ext.isIE8) {
+                browser = "IE8";
+            }
+
+            if (Ext.isOpera) {
+                browser = "Opera";
+            }
+
+            if (Ext.isSafari) {
+                browser = "Safari";
+            }
+
+            if (Ext.isSafari2) {
+                browser = "Safari2";
+            }
+
+            if (Ext.isSafari3) {
+                browser = "Safari3";
+            }
+
+            if (Ext.isSafari4) {
+                browser = "Safari4";
+            }
+
+            var platform = "";
+
+            if (Ext.isAir) {
+                platform = "Air";
+            }
+
+            if (Ext.isLinux) {
+                platform = "Linux";
+            }
+
+            if (Ext.isMac) {
+                platform = "Mac";
+            }
+
+            if (Ext.isWindows) {
+                platform = "Windows ";
+            }
+
+            var msg = "Your browser is " + browser + ", and your platform is " + platform;
+
+            Ext.Msg.alert('Browser and Platform', msg);
+
+
+        });
+
+
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+
+        Ext.onReady(function() {
+
+            var colorsArray = new Array();
+            colorsArray[0] = 'Blue';
+            colorsArray[1] = 'Red';
+            colorsArray[2] = 'White';
+
+            // postition is 2, the index of 'White' in the array.
+            var position = colorsArray.indexOf('White');
+
+            document.write(position + '<br/>');
+
+            // 'Brown' does not exist in the array,
+            // position is -1.
+            position = colorsArray.indexOf('Brown');
+
+            document.write(position + '<br/>');
+
+            colorsArray.remove('Blue');
+            // 'Blue' does not exist anymore,
+            // position is -1.
+            position = colorsArray.indexOf('Blue');
+
+            document.write(position + '<br/>');
+
+            var sample;
+            var defined = Ext.util.Format.undef(sample);
+            // defined is an empty string
+            document.write(defined + 'define is an empty string<br/>');
+            sample = "sample is now defined";
+            defined = Ext.util.Format.undef(sample);
+            // defined is now "sample is now defined".
+            document.write(defined + '<br/>');
+        });
+
+
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext/resources/css/ext-all.css" />
+
+	<style type="text/css">
+
+	</style>
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+        // Combo box with remote data
+
+        Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+
+        Ext.QuickTips.init();
+
+var makesStore = new Ext.data.JsonStore({
+    url: 'cars-makes.php',
+    baseParams:{cmd:'makes'},
+    root: 'makes',
+    fields: ['id', 'name']
+});
+
+
+var makesCombo = {
+    xtype: 'combo',
+    store: makesStore,
+    displayField: 'name',
+    valueField: 'id',
+    editable: false,
+    mode: 'remote',
+    forceSelection: true,
+    triggerAction: 'all',
+    fieldLabel: 'Make',
+    emptyText: 'Select a make...',
+    selectOnFocus: true
+}
+
+Ext.onReady(function() {
+
+    var newCarForm = new Ext.FormPanel({
+        frame: true,
+        title: 'Get a quote',
+        bodyStyle: 'padding:5px',
+        width: 420,
+        id: 'make-selector-frm',
+        url: 'new-car.php',
+        items: [
+	       makesCombo
+        ],
+        buttons: [{
+            text: 'Go',
+            handler: function() {
+                Ext.getCmp('make-selector-frm').getForm().submit();
+            }
+        }, {
+            text: 'Cancel'
+        }]
+    });
+
+    newCarForm.render(document.body);
+
+});
+
+    </script>
+</head>
+<body style="padding: 20px">
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+﻿[{
+    task:'Help System Integration',
+    planned:'3 hrs',
+    actual:'4 hrs',
+    status:'Done',
+    uiProvider:'col',
+    cls:'master-task',
+    iconCls:'backlog-item-done',
+    children:[{
+        task:'Create help, help/about and help/contents menus in main window',
+        planned:'0.5 hr',
+        actual:'1 hr',
+		status:'Done',
+        uiProvider:'col',
+        leaf:true,
+        iconCls:'backlog-item-done'
+    },{
+        task:'Connect help/contents menu to help viewer',
+        planned:'1 hr',
+        actual:' 1 hr',
+		status:'Done',
+        uiProvider:'col',
+        leaf:true,
+        iconCls:'backlog-item-done'
+    },{
+        task:'Create help/about window',
+        planned:'1 hr',
+        actual:'1 hr',
+		status:'Done',
+        uiProvider:'col',
+        leaf:true,
+        iconCls:'backlog-item-done'
+    },{
+        task:'Show application version in help/about window',
+        planned:' 0.5 hr',
+        actual:'1 hr',
+		status:'Done',
+        uiProvider:'col',
+        leaf:true,
+        iconCls:'backlog-item-done'
+    }]
+},{
+    task:'Client Search',
+    planned:'3.5 hrs',
+    actual:'.5 hr',
+    status:'In Progress',
+    uiProvider:'col',
+    cls:'master-task',
+    iconCls:'backlog-item-inprogress',
+    children:[{
+        task:'Create client search tab in lookup window',
+        planned:'.5 hr',
+        actual:'.5 hr',
+		status:'Done',
+        uiProvider:'col',
+        leaf:true,
+        iconCls:'backlog-item-done'
+    },{
+        task:'Connect lookup window to client search command in main form',
+        planned:'2 hrs',
+        actual:'0 hr',
+		status:'Not Started',
+        uiProvider:'col',
+        leaf:true,
+        iconCls:'backlog-item-new'
+    },{
+        task:'Connect lookup window results to client fields in main form',
+        planned:'1 hr',
+        actual:'0 hr',
+		status:'Not Started',
+        uiProvider:'col',
+        leaf:true,
+        iconCls:'backlog-item-new'
+    }]
+}]

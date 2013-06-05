@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script src="js/cars.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+
+// A progress bar with progress updates.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+var Loader = function() {
+    var f = function(v, pbar, btn, count, cb) {
+        return function() {
+            if (v > count) {
+                btn.dom.disabled = false;
+                cb();
+            } else {
+                pbar.updateProgress(v / count, 'Loading item ' + v + ' of ' + count + '...');                
+            }
+        };
+    };
+    return {
+        start: function(pbar, btn, count, cb) {
+            btn.dom.disabled = true;
+            var ms = 5000 / count;
+            for (var i = 1; i < (count + 2); i++) {
+                setTimeout(f(i, pbar, btn, count, cb), i * ms);
+            }
+        }
+    }
+} ();
+
+Ext.onReady(function() {
+
+    Ext.QuickTips.init();
+
+    var pBar = new Ext.ProgressBar({
+        id: 'pBar',
+        width: 300,
+        renderTo: 'pBarDiv',
+        text: 'Loading...'
+    });    
+    
+    var btn = Ext.get('btn');
+    btn.on('click', function() {
+        Loader.start(pBar, Ext.get('btn'), 10, function() {
+            pbar.reset(true);
+            Ext.fly('pBarText').update('Finished').show();
+        });
+    });
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+    
+    <p><button id="btn">Start long-running operation</button><br /><br /></p>
+    <div id="pBarDiv"></div>
+    <span id="pBarText"></span>
+
+
+</body>
+</html>

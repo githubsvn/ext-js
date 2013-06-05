@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+        Ext.onReady(function() {
+
+            // Absolute layout.
+
+            panel1 = new Ext.Panel({
+                title: 'Panel 1',
+                // When using abosulute layouts,
+                // you need to specify the coordinates.
+                x: 50,
+                y: 50,
+                width: 200,
+                height: 200,
+                html: 'Positioned at x:50, y:50'
+
+            });
+
+            panel2 = new Ext.Panel({
+                title: 'Panel 2',
+                x: 200,
+                y: 200,
+                width: 300,
+                height: 150,
+                html: 'Positioned at x:100, y:100'
+            });
+
+
+            var viewport = new Ext.Viewport({
+                // Position items within this container using 
+                // CSS-style absolute positioning.
+                layout: 'absolute',
+                items: [panel1, panel2]
+            });
+
+        });
+
+
+    
+    </script>
+
+</head>
+<body>
+</body>
+</html>

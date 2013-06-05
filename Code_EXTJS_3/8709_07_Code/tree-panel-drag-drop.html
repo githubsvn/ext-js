@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext3/css/ext-all.css" />
+	
+	<style type="text/css">
+.report
+{
+    background:url(img/pie-chart.png) 0 no-repeat !important;
+}
+.dataset
+{
+    background:url(img/table.png) 0 no-repeat !important;
+}	
+.datasource
+{
+    background:url(img/data.png) 0 no-repeat !important;
+}	
+	</style>
+
+    <script type="text/javascript" src="../ext3/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext3/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+
+// Tree and form in a master-details relationship.
+
+Ext.BLANK_IMAGE_URL = '../ext3/images/default/s.gif';
+
+var pnlBody = 'Drop an item to see its description';
+
+var tpl = new Ext.Template('<p class="">{description}</p>');
+
+tpl.compile();
+
+Ext.onReady(function() {
+    
+    var tree = new Ext.tree.TreePanel({
+        height: 350,
+        region:'center',
+        useArrows: true,
+        autoScroll: true,
+        animate: true,
+        enableDD: true,
+        ddGroup: 'treeDDGroup',
+        containerScroll: true,
+        border: false,
+        dataUrl: 'tree-panel-drag-drop.php',
+        root: {
+            nodeType: 'async',
+            text: 'My Reporting Project',
+            draggable: false,
+            id: 'project'
+        }
+    });
+
+    new Ext.Panel({
+        title: 'Project Explorer',
+        renderTo: document.body,
+        layout: 'border',
+        width: 250,
+        height: 500,
+        items: [tree, new Ext.Panel({
+            region: 'south',
+            id: 'details-panel',
+            autoScroll: true,
+            split: true,
+            height: 150,
+            baseCls:'x-box-mc',
+            html: pnlBody,
+            bodyStyle:'padding:5px'
+        })]
+    });
+
+    var detailsPanel = Ext.getCmp('details-panel');
+    var pnlDropTargetEl = detailsPanel.body;
+
+    var pnlDropTarget = new Ext.dd.DropTarget(pnlDropTargetEl, {
+            ddGroup: 'treeDDGroup',
+            copy: false,
+            notifyDrop: function(ddSource, e, data) {
+                var el = detailsPanel.body;
+                tpl.overwrite(el, data.node.attributes);
+                return true;
+            }
+    }); 
+
+    tree.getRootNode().expand(true);
+    
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

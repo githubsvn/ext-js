@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script> 
+    <script type="text/javascript">
+
+
+        Ext.onReady(function() {
+
+            var colorsArray = new Array();
+            colorsArray[0] = 'Blue';
+            colorsArray[1] = 'Red';
+            colorsArray[2] = 'White';
+
+            // colorsArrayType’s value is “array”.
+            var colorsArrayType = Ext.type(colorsArray);
+            // isArray is true
+            var isArray = Ext.isArray(colorsArray);
+
+            document.write(colorsArrayType + '<br/>');
+            document.write(isArray + '<br/>');
+
+            var colorsObject = { color1: 'Blue', color2: 'Red', color3: 'White' };
+
+            // colorsObjectType’s value is “object”.
+            var colorsObjectType = Ext.type(colorsObject);
+
+            document.write(colorsObjectType + '<br/>');
+
+            var aNumber = 1;
+            var aString = '1';
+
+            // number is 1.
+            var number = Ext.num(aNumber, 0);
+
+            document.write(number + '<br/>');
+            // Since aString is not numeric, the supplied 
+            // default value (0) will be returned.
+            number = Ext.num(aString, 0);
+
+            document.write(number + '<br/>');
+
+            // Converting empty references to a default value
+            var empty;
+            var notEmpty = Ext.value(empty, 'defaultValue', false);
+            // notEmpty is 'defaultValue'
+            document.write(notEmpty + '<br/>');
+
+        });
+
+
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>

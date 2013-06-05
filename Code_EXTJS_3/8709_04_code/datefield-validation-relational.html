@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+<head>
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />	
+	
+	<script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+    
+    <script type="text/javascript">
+
+
+        // DateField - Validating a dates range
+
+        Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+
+Ext.apply(Ext.form.VTypes, {
+
+    daterange: function(val, field) {
+        var date = field.parseDate(val);
+
+        if (!date) {
+            return;
+        }
+        if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
+            var start = Ext.getCmp(field.startDateField);
+            start.setMaxValue(date);
+            start.validate();
+            this.dateRangeMax = date;
+        }
+        else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
+            var end = Ext.getCmp(field.endDateField);
+            end.setMinValue(date);
+            end.validate();
+            this.dateRangeMin = date;
+        }
+        
+        return true;
+    }
+});
+
+var startDateFld = {
+    xtype: 'datefield',
+    fieldLabel: 'From',
+    name: 'start-date',
+    id: 'start-date',
+    vtype: 'daterange',
+    endDateField: 'end-date'
+};
+
+var endDateFld = {
+    xtype:'datefield',
+    fieldLabel: 'To',
+    name: 'end-date',
+    id: 'end-date',
+    vtype: 'daterange',
+    startDateField: 'start-date' 
+};
+
+Ext.onReady(function() {
+
+    var dr = new Ext.FormPanel({
+        labelWidth: 125,
+        frame: true,
+        title: 'Schedule Alerts',
+        bodyStyle: 'padding:5px',
+        width: 325,
+        defaults: { width: 160 },
+        defaultType: 'datefield',
+        items: [startDateFld, endDateFld]
+    });
+
+    dr.render(Ext.getBody());
+});
+    
+    </script>
+</head>
+<body style="padding: 20px">
+   
+</body>
+</html>

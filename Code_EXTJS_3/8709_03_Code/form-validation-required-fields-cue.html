@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office"
+xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+    
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript">
+
+        // Custom textfield and textarea with glyph 
+
+        Ext.BLANK_IMAGE_URL = '../ext/images/default/s.gif';
+        // Required if showing validation messages
+        Ext.QuickTips.init();
+
+        Ext.ns('Ext.ux.form');
+
+Ext.ux.form.RequiredTextField = Ext.extend(Ext.form.TextField, {
+
+    allowBlank: false,
+    onRender: function(ct, position) {
+
+        Ext.ux.form.RequiredTextField.superclass.onRender.call(this, ct, position);
+
+        glyphX = this.el.dom.clientLeft + this.el.dom.offsetLeft + 1;
+        glyphY = this.el.dom.clientTop + this.el.dom.offsetTop + 1;
+
+        theGlyph = '<img style="position: absolute; width: 5px; height: 5px; left:' + glyphX +
+                        'px; top:' + glyphY + 'px;" src="img/text-bg-reqd.png"/>';
+
+        Ext.DomHelper.insertAfter(this.el, theGlyph);
+
+    }
+});
+
+Ext.reg('ux.requiredtextfield', Ext.ux.form.RequiredTextField);
+
+Ext.ux.form.RequiredTextArea = Ext.extend(Ext.form.TextArea, {
+
+    allowBlank: false,
+    onRender: function(ct, position) {
+
+        Ext.ux.form.RequiredTextArea.superclass.onRender.call(this, ct, position);
+
+        if (Ext.isGecko) {
+            glyphX = this.el.dom.clientLeft + this.el.dom.offsetLeft + 2;
+            glyphY = this.el.dom.clientTop + this.el.dom.offsetTop + 2;
+        } else {
+            glyphX = this.el.dom.clientLeft + this.el.dom.offsetLeft + 1;
+            glyphY = this.el.dom.clientTop + this.el.dom.offsetTop + 1;
+        }
+
+        theGlyph = '<img style="position: absolute; width: 5px; height: 5px; left:' + glyphX +
+                        'px; top:' + glyphY + 'px;" src="img/text-bg-reqd.png"/>';
+
+        Ext.DomHelper.insertAfter(this.el, theGlyph);
+
+    }
+});
+
+Ext.reg('ux.requiredtextarea', Ext.ux.form.RequiredTextArea);
+
+Ext.onReady(function() {
+
+    var commentForm = new Ext.FormPanel({
+        frame: true,
+        title: 'Send your comments',
+        bodyStyle: 'padding:5px',
+        width: 550,
+        layout: 'form',
+        items: [
+		    {   xtype: 'ux.requiredtextfield',
+		        fieldLabel: 'Name',
+		        name: 'name',
+		        anchor: '98%',
+		        allowBlank:false
+		        
+		    }, {
+		        xtype: 'textfield',
+		        fieldLabel: 'Email',
+		        name: 'email',
+		        anchor: '98%',
+		        vtype:'email'
+		    }, {
+		        xtype: 'ux.requiredtextarea',
+		        fieldLabel: 'Comments',
+		        name: 'comments',
+		        anchor: '98%',
+		        height:200,
+		        allowBlank:false
+		    }
+	    ],
+        buttons: [{
+            text: 'Send'
+        }, {
+            text: 'Cancel'
+		}]
+    });
+	
+commentForm.render(document.body);
+
+
+
+
+});
+    
+    </script>
+</head>
+<body style="padding: 20px;">
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../ext/css/ext-all.css" />
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+
+    <script type="text/javascript" src="../ext/ext-all-debug.js"></script>
+
+        <script type="text/javascript">
+
+            // Add a function to the MixedCollection Class.
+            Ext.override(Ext.util.MixedCollection, {
+
+                addUnique: function(key, object) {
+                    if (this.indexOf(object) > -1) return;
+                    this.add(key, object);
+                }
+
+            });
+
+
+            Ext.onReady(function() {
+
+                // Create our enhanced collection.
+                var col = new Ext.util.MixedCollection();
+
+                // Confirm that the same value cannot be added twice.
+                col.add("key 1", "value 1");
+
+                document.write("Original count: " + col.getCount() + "<br/>");
+
+                // Use the added function to make sure duplicates are not added.
+                col.addUnique("key 2", "value 1");
+                // Number of elements in the collection is still 1.
+
+                document.write("Count after trying to add a duplicate: " + col.getCount() + "<br/>");
+
+            });
+            
+    </script>
+
+</head>
+<body>
+</body>
+</html>
