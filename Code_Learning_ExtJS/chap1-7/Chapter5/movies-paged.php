@@ -6,14 +6,14 @@ $limit     = ($_REQUEST['limit'] != '') ? $_REQUEST['limit'] : 3;
 $dir       = ($_REQUEST['dir']   != '') ? $_REQUEST['dir']   : 'asc';
 $sort      = ($_REQUEST['sort']  != '') ? $_REQUEST['sort']  : 'title';
 
-Include('../cfg/db.php');
+Include('../../cfg/db.php');
 
 $count_sql = "SELECT * FROM movies ORDER BY ".$sort." ".$dir;
 $sql = $count_sql . " LIMIT ".$start.", ".$limit;
 $arr = array();
 
 If (!$rs = mysql_query($sql)) {
-
+        echo mysql_error();
 	Echo '{success:false}';
 
 }else{

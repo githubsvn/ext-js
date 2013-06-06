@@ -2,7 +2,7 @@ Ext.onReady(function() {
 
 	// Instantiate main tree classes
 	var treeLoader = new Ext.tree.TreeLoader({
-		dataUrl:'http://localhost/samplejson.php'
+		dataUrl:'http://local.ext-js/Code_Learning_ExtJS/chap8-11/5142_08_code/samplejson.php'
 	});
 
 	var rootNode = new Ext.tree.AsyncTreeNode({

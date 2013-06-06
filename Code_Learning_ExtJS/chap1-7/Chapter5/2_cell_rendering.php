@@ -1,9 +1,9 @@
 <html>
 <head>
     <title>Grid Cell Rendering</title>
-    <link rel="stylesheet" type="text/css" href="../lib/extjs/resources/css/ext-all.css" />
- 	<script type="text/javascript" src="../lib/extjs/adapter/ext/ext-base.js"></script>
-    <script type="text/javascript" src="../lib/extjs/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../lib/extjs/resources/css/ext-all.css" />
+ 	<script type="text/javascript" src="../../lib/extjs/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../lib/extjs/ext-all.js"></script>
 	<script>
 	Ext.onReady(function(){
 		Ext.BLANK_IMAGE_URL = 'images/s.gif';

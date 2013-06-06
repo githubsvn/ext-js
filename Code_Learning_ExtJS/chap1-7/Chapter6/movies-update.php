@@ -1,6 +1,6 @@
 <?php
 
-Include('../cfg/db.php');
+Include('../../cfg/db.php');
 
 $action  = ($_REQUEST['action'] != '') ? $_REQUEST['action'] : 'update';
 
